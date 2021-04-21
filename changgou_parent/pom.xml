@@ -5,10 +5,13 @@
     <modelVersion>4.0.0</modelVersion>
     <packaging>pom</packaging>
     <modules>
+        <module>changgou_common</module>
+        <module>changgou_eureka</module>
         <module>changgou_gateway</module>
         <module>changgou_service</module>
         <module>changgou_service_api</module>
         <module>changgou_web</module>
+        <module>changgou_common_db</module>
     </modules>
     <groupId>com.changgou</groupId>
     <artifactId>changgou_parent</artifactId>
