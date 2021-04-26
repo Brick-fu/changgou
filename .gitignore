@@ -1,18 +1,11 @@
+# Maven #
+target/
 
+# IDEA #
 .idea/
-
-changgou_parent/changgou_gateway/changgou_gateway.iml
-
-changgou_parent/changgou_service/changgou_service.iml
-
-changgou_parent/changgou_service_api/changgou_service_api.iml
-
-changgou_parent/changgou_web/changgou_web.iml
-
 *.iml
 
-*.class
-
-*.jar
-
-*.lst
+# Eclipse #
+.settings/
+.classpath
+.project

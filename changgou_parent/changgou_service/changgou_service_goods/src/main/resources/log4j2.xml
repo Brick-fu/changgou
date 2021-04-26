@@ -19,13 +19,13 @@
             <PatternLayout pattern="[%d{HH:mm:ss.SSS}] [%-5level] %class{36} %L %M - %msg%xEx%n"/>
         </File>
         <!-- 这个会打印出所有的信息，每次大小超过size，则这size大小的日志会自动存入按年份-月份建立的文件夹下面并进行压缩，作为存档-->
-        <RollingFile name="RollingFile" fileName="/home/brick/project_log/goods/application.log"
+        <RollingRandomAccessFile name="RollingFile" fileName="/home/brick/project_log/goods/application.log"
                      filePattern="logs/$${date:yyyy-MM}/app-%d{MM-dd-yyyy}-%i.log.gz">
             <PatternLayout pattern="[%d{yyyy-MM-dd 'at' HH:mm:ss z}] [%-5level] %class{36} %L %M - %msg%xEx%n"/>
             <SizeBasedTriggeringPolicy size="50M"/>
             <!-- DefaultRolloverStrategy属性如不设置，则默认为最多同一文件夹下7个文件，这里设置了20 -->
             <DefaultRolloverStrategy max="20"/>
-        </RollingFile>
+        </RollingRandomAccessFile>
     </appenders>
     <loggers>
         <!-- 过滤掉spring和mybatis的一些信息，输出到配置的一个或多个AppenderRef中-->
