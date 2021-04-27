@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.changgou.goods.dao.BrandMapper">
+    <select id="findAll" resultType="com.changgou.goods.pojo.Brand">
+        select * from tb_brand
+    </select>
+
+    <select id="findById" parameterType="int" resultType="com.changgou.goods.pojo.Brand">
+        select * from tb_brand where id = #{id}
+    </select>
+
+    <select id="findList" parameterType="map" resultType="com.changgou.goods.pojo.Brand">
+        select * from tb_brand
+        <where>
+            <if test="searchMap != null">
+                <if test="name != null">or name like CONCAT('%',#{name},'%')</if>
+                <if test="letter != null">or letter like CONCAT('%',#{letter},'%')</if>
+            </if>
+
+        </where>
+    </select>
+
+    <insert id="add" parameterType="com.changgou.goods.pojo.Brand">
+        INSERT into tb_brand(id,name,image,letter,seq) values(#{id},#{name},#{image},#{letter},#{seq});
+    </insert>
+
+    <update id="update" parameterType="com.changgou.goods.pojo.Brand">
+        UPDATE tb_brand
+        <set>
+            <if test="name != null">
+                name = #{name},
+            </if>
+            <if test="image != null">
+                image = #{image},
+            </if>
+            <if test="letter != null">
+                letter = #{letter},
+            </if>
+            <if test="seq != null">
+                seq = #{seq},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <delete id="delete" parameterType="int">
+        DELETE FROM  tb_brand  where id = #{id}
+    </delete>
+
+</mapper>
