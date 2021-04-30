@@ -4,13 +4,13 @@ import com.changgou.entity.Result;
 import com.changgou.enums.StatusCodeEnum;
 import com.changgou.goods.pojo.Brand;
 import com.changgou.goods.service.BrandService;
+import com.github.pagehelper.PageInfo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Map;
 
 @RestController
 @RequestMapping(value = "/brand")
@@ -97,10 +97,37 @@ public class BrandController {
      * @Date 下午10:38 2021/4/27
      * @Author brick
      **/
-    @GetMapping(value = "/search" )
-    public Result<Brand> findList(@RequestParam Map<String,Object> searchMap){
-        logger.info("BrandController.findList,{}",searchMap.toString());
-        List<Brand> list = brandService.findList(searchMap);
-        return new Result<Brand>(true,StatusCodeEnum.OK.getCode(),"查询成功",list);
+    @PostMapping(value = "/search" )
+    public Result<Brand> findList(@RequestBody Brand brand){
+        logger.info("BrandController.findList,{}",brand.toString());
+        List<Brand> list = brandService.findList(brand);
+        return new Result<>(true,StatusCodeEnum.OK.getCode(),"查询成功",list);
+    }
+
+    /**
+     * @Description 分页查询品牌数据
+     * @Param [page, size]
+     * @Return com.changgou.entity.Result<com.github.pagehelper.PageInfo<com.changgou.goods.pojo.Brand>>
+     * @Date 下午11:23 2021/4/29
+     * @Author brick
+     **/
+    @GetMapping(value = "/search/{page}/{size}" )
+    public Result<PageInfo<Brand>> findPage(@PathVariable Integer page, @PathVariable Integer size){
+        PageInfo<Brand> pageList = brandService.findPage(null,page, size);
+        return new Result<>(true,StatusCodeEnum.OK.getCode(), "查询成功",pageList);
+    }
+
+    /**
+     * @Description 分页搜索品牌数据
+     * @Param [searchMap, page, size]
+     * @Return com.changgou.entity.Result<com.github.pagehelper.PageInfo<com.changgou.goods.pojo.Brand>>
+     * @Date 下午11:26 2021/4/29
+     * @Author brick
+     **/
+    @PostMapping(value = "/search/{page}/{size}" )
+    public Result<PageInfo<Brand>> findPage(@RequestBody Brand brand,
+                                            @PathVariable Integer page, @PathVariable Integer size){
+        PageInfo<Brand> pageList = brandService.findPage(brand, page, size);
+        return new Result<>(true,StatusCodeEnum.OK.getCode(), "查询成功",pageList);
     }
 }

@@ -1,15 +1,18 @@
 package com.changgou.goods.service.impl;
 
+import com.changgou.entity.Page;
 import com.changgou.goods.dao.BrandMapper;
 import com.changgou.goods.pojo.Brand;
 import com.changgou.goods.service.BrandService;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Map;
+import java.util.Objects;
 
 @Service
 public class BrandServiceImpl implements BrandService {
@@ -45,7 +48,19 @@ public class BrandServiceImpl implements BrandService {
     }
 
     @Override
-    public List<Brand> findList(Map<String, Object> searchMap) {
-        return brandMapper.findList(searchMap);
+    public List<Brand> findList(Brand brand) {
+        return brandMapper.findList(brand);
+    }
+
+    @Override
+    public PageInfo<Brand> findPage(Brand brand, int page, int size) {
+        PageHelper.startPage(page,size);
+        List<Brand> brands;
+        if(Objects.isNull(brand)){
+            brands = brandMapper.findAll();
+        }else{
+            brands = brandMapper.findList(brand);
+        }
+        return new PageInfo<>(brands);
     }
 }

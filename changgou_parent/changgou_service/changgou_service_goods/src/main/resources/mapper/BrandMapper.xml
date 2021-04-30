@@ -11,14 +11,11 @@
         select * from tb_brand where id = #{id}
     </select>
 
-    <select id="findList" parameterType="map" resultType="com.changgou.goods.pojo.Brand">
+    <select id="findList" parameterType="com.changgou.goods.pojo.Brand" resultType="com.changgou.goods.pojo.Brand">
         select * from tb_brand
         <where>
-            <if test="searchMap != null">
-                <if test="name != null">or name like CONCAT('%',#{name},'%')</if>
-                <if test="letter != null">or letter like CONCAT('%',#{letter},'%')</if>
-            </if>
-
+            <if test="name != null">or name like CONCAT('%',#{name},'%')</if>
+            <if test="letter != null">or letter like CONCAT('%',#{letter},'%')</if>
         </where>
     </select>
 

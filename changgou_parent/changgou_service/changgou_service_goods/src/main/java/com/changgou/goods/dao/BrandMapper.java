@@ -1,5 +1,6 @@
 package com.changgou.goods.dao;
 
+import com.changgou.entity.Page;
 import com.changgou.goods.pojo.Brand;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
@@ -19,5 +20,7 @@ public interface BrandMapper{
 
     public void delete(Integer id);
 
-    public List<Brand> findList(Map<String, Object> searchMap);
+    public List<Brand> findList(Brand brand);
+
+    Page<Brand> findPage(Map<String, Object> searchMap, int page, int size);
 }
