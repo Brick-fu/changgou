@@ -2,7 +2,7 @@ server:
   port: 18081
 spring:
   application:
-    name: goods
+    name: changgou_goods
   datasource:
     type: com.alibaba.druid.pool.DruidDataSource
     driver‐class‐name: com.mysql.cj.jdbc.Driver
@@ -30,11 +30,6 @@ mybatis:
     map-underscore-to-camel-case: true
   mapper-locations: classpath:mapper/*Mapper.xml
   type-aliases-package: com.changgou.goods.pojo
-  scripting-language-driver:
-    freemarker:
-      template-file:
-        path-provider:
-          includes-mapper-name-when-separate-directory:
 pagehelper:
   helper-dialect: mysql
   reasonable: true

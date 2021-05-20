@@ -15,8 +15,9 @@ import java.util.List;
 @RestController
 @RequestMapping(value = "/brand")
 public class BrandController {
-    @Autowired
+
     private BrandService brandService;
+
     Logger logger = LoggerFactory.getLogger(BrandController.class);
 
     /**
@@ -27,10 +28,10 @@ public class BrandController {
      * @Author brick
      **/
     @GetMapping
-    public Result<Brand> findAll(){
+    public Result<List<Brand>> findAll(){
         logger.info("BrandController.findAll");
         List<Brand> brandList = brandService.findAll();
-        return new Result<Brand>(true, StatusCodeEnum.OK.getCode(),"查询成功",brandList) ;
+        return new Result<>(true, StatusCodeEnum.SUCCESS.getCode(),"查询成功",brandList) ;
     }
 
     /**
@@ -44,7 +45,7 @@ public class BrandController {
     public Result<Brand> findById(@PathVariable Integer id){
         logger.info("BrandController.findById,{}",id);
         Brand brand = brandService.findById(id);
-        return new Result<Brand>(true,StatusCodeEnum.OK.getCode(), "查询成功",brand);
+        return new Result<>(true,StatusCodeEnum.SUCCESS.getCode(), "查询成功",brand);
     }
 
     /**
@@ -58,7 +59,7 @@ public class BrandController {
     public Result<Brand> add(@RequestBody Brand brand){
         logger.info("BrandController.add,{}",brand.toString());
         brandService.add(brand);
-        return new Result<Brand>(true,StatusCodeEnum.OK.getCode(), "添加成功");
+        return new Result<>(true,StatusCodeEnum.SUCCESS.getCode(), "添加成功");
     }
 
     /**
@@ -73,7 +74,7 @@ public class BrandController {
         logger.info("BrandController.update,{},{}",brand.toString(),id);
         brand.setId(id);
         brandService.update(brand);
-        return new Result<Brand>(true,StatusCodeEnum.OK.getCode(), "修改成功");
+        return new Result<>(true,StatusCodeEnum.SUCCESS.getCode(), "修改成功");
     }
 
     /**
@@ -87,7 +88,7 @@ public class BrandController {
     public Result<Brand> delete(@PathVariable Integer id){
         logger.info("BrandController.delete,{}",id);
         brandService.delete(id);
-        return new Result<Brand>(true,StatusCodeEnum.OK.getCode(),"删除成功");
+        return new Result<>(true,StatusCodeEnum.SUCCESS.getCode(),"删除成功");
     }
 
     /**
@@ -98,10 +99,10 @@ public class BrandController {
      * @Author brick
      **/
     @PostMapping(value = "/search" )
-    public Result<Brand> findList(@RequestBody Brand brand){
+    public Result<List<Brand>> findList(@RequestBody Brand brand){
         logger.info("BrandController.findList,{}",brand.toString());
         List<Brand> list = brandService.findList(brand);
-        return new Result<>(true,StatusCodeEnum.OK.getCode(),"查询成功",list);
+        return new Result<>(true,StatusCodeEnum.SUCCESS.getCode(),"查询成功",list);
     }
 
     /**
@@ -114,7 +115,7 @@ public class BrandController {
     @GetMapping(value = "/search/{page}/{size}" )
     public Result<PageInfo<Brand>> findPage(@PathVariable Integer page, @PathVariable Integer size){
         PageInfo<Brand> pageList = brandService.findPage(null,page, size);
-        return new Result<>(true,StatusCodeEnum.OK.getCode(), "查询成功",pageList);
+        return new Result<>(true,StatusCodeEnum.SUCCESS.getCode(), "查询成功",pageList);
     }
 
     /**
@@ -128,6 +129,11 @@ public class BrandController {
     public Result<PageInfo<Brand>> findPage(@RequestBody Brand brand,
                                             @PathVariable Integer page, @PathVariable Integer size){
         PageInfo<Brand> pageList = brandService.findPage(brand, page, size);
-        return new Result<>(true,StatusCodeEnum.OK.getCode(), "查询成功",pageList);
+        return new Result<>(true,StatusCodeEnum.SUCCESS.getCode(), "查询成功",pageList);
+    }
+
+    @Autowired
+    public void setBrandService(BrandService brandService) {
+        this.brandService = brandService;
     }
 }

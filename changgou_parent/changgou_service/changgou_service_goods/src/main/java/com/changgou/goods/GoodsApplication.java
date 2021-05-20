@@ -10,7 +10,7 @@ import org.springframework.boot.web.servlet.ServletRegistrationBean;
 import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
 import org.springframework.context.annotation.Bean;
 
-@SpringBootApplication
+@SpringBootApplication(scanBasePackages = {"com.changgou"})
 @EnableEurekaClient
 @MapperScan("com.changgou.goods.dao")
 public class GoodsApplication {
