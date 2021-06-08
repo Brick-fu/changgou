@@ -8,7 +8,9 @@ public enum StatusCodeEnum {
     ACCESSERROR("100003","权限不足"),
     REMOTEERROR("100004","远程调用失败"),
     REPERROR("100005","重复操作"),
-    NOTFOUNDERROR("100006","没有对应的抢购数据");
+    NOTFOUNDERROR("100006","没有对应的抢购数据"),
+    /*文件上传服务码*/
+    MINIOCLINT_CREATE_FAIL("200001","minioClient创建失败");
 
 
     private String code;
