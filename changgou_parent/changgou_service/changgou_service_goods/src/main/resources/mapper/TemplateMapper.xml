@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.changgou.goods.dao.TemplateMapper">
+    <select id="findList" resultType="com.changgou.goods.pojo.Template">
+        select * from tb_template
+    </select>
+
+    <select id="findById" parameterType="int" resultType="com.changgou.goods.pojo.Template">
+        select * from tb_template where id = #{id}
+    </select>
+
+    <select id="findList" parameterType="com.changgou.goods.pojo.Template" resultType="com.changgou.goods.pojo.Template">
+        select * from tb_template
+        <where>
+            <if test="id != null">or id = #{id}</if>
+            <if test="name != null">or name like CONCAT('%',#{name},'%')</if>
+            <if test="specNum != null">or spec_num = #{specNum}</if>
+            <if test="paraNum != null">or para_num = #{paraNum}</if>
+        </where>
+    </select>
+
+    <insert id="add" parameterType="com.changgou.goods.pojo.Template">
+        INSERT into tb_template(id, name, spec_num, para_num) values(#{id},#{name},#{specNum},#{paraNum});
+    </insert>
+
+    <update id="update" parameterType="com.changgou.goods.pojo.Template">
+        UPDATE tb_template
+        <set>
+            <if test="name != null">
+                name = #{name},
+            </if>
+            <if test="specNum != null">
+                spec_num = #{specNum},
+            </if>
+            <if test="paraNum != null">
+                para_num = #{paraNum},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <delete id="delete" parameterType="int">
+        DELETE FROM  tb_template  where id = #{id}
+    </delete>
+
+</mapper>

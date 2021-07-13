@@ -28,10 +28,10 @@ public class BrandController {
      * @Author brick
      **/
     @GetMapping
-    public Result<List<Brand>> findAll(){
+    public Result<List<Brand>> findAll() {
         logger.info("BrandController.findAll");
         List<Brand> brandList = brandService.findAll();
-        return new Result<>(true, StatusCodeEnum.SUCCESS.getCode(),"查询成功",brandList) ;
+        return new Result<>(true, StatusCodeEnum.SUCCESS.getCode(), "查询成功", brandList);
     }
 
     /**
@@ -42,10 +42,10 @@ public class BrandController {
      * @Author brick
      **/
     @GetMapping("/{id}")
-    public Result<Brand> findById(@PathVariable Integer id){
-        logger.info("BrandController.findById,{}",id);
+    public Result<Brand> findById(@PathVariable Integer id) {
+        logger.info("BrandController.findById,{}", id);
         Brand brand = brandService.findById(id);
-        return new Result<>(true,StatusCodeEnum.SUCCESS.getCode(), "查询成功",brand);
+        return new Result<>(true, StatusCodeEnum.SUCCESS.getCode(), "查询成功", brand);
     }
 
     /**
@@ -56,10 +56,10 @@ public class BrandController {
      * @Author brick
      **/
     @PostMapping
-    public Result<Brand> add(@RequestBody Brand brand){
-        logger.info("BrandController.add,{}",brand.toString());
+    public Result<Brand> add(@RequestBody Brand brand) {
+        logger.info("BrandController.add,{}", brand.toString());
         brandService.add(brand);
-        return new Result<>(true,StatusCodeEnum.SUCCESS.getCode(), "添加成功");
+        return new Result<>(true, StatusCodeEnum.SUCCESS.getCode(), "添加成功");
     }
 
     /**
@@ -69,12 +69,12 @@ public class BrandController {
      * @Date 下午10:30 2021/4/27
      * @Author brick
      **/
-    @PutMapping(value="/{id}")
-    public Result<Brand> update(@RequestBody Brand brand,@PathVariable Integer id){
-        logger.info("BrandController.update,{},{}",brand.toString(),id);
+    @PutMapping(value = "/{id}")
+    public Result<Brand> update(@RequestBody Brand brand, @PathVariable Integer id) {
+        logger.info("BrandController.update,{},{}", brand.toString(), id);
         brand.setId(id);
         brandService.update(brand);
-        return new Result<>(true,StatusCodeEnum.SUCCESS.getCode(), "修改成功");
+        return new Result<>(true, StatusCodeEnum.SUCCESS.getCode(), "修改成功");
     }
 
     /**
@@ -84,11 +84,11 @@ public class BrandController {
      * @Date 下午10:31 2021/4/27
      * @Author bricks
      **/
-    @DeleteMapping(value = "/{id}" )
-    public Result<Brand> delete(@PathVariable Integer id){
-        logger.info("BrandController.delete,{}",id);
+    @DeleteMapping(value = "/{id}")
+    public Result<Brand> delete(@PathVariable Integer id) {
+        logger.info("BrandController.delete,{}", id);
         brandService.delete(id);
-        return new Result<>(true,StatusCodeEnum.SUCCESS.getCode(),"删除成功");
+        return new Result<>(true, StatusCodeEnum.SUCCESS.getCode(), "删除成功");
     }
 
     /**
@@ -98,38 +98,38 @@ public class BrandController {
      * @Date 下午10:38 2021/4/27
      * @Author brick
      **/
-    @PostMapping(value = "/search" )
-    public Result<List<Brand>> findList(@RequestBody Brand brand){
-        logger.info("BrandController.findList,{}",brand.toString());
+    @PostMapping(value = "/search")
+    public Result<List<Brand>> findList(@RequestBody Brand brand) {
+        logger.info("BrandController.findList,{}", brand.toString());
         List<Brand> list = brandService.findList(brand);
-        return new Result<>(true,StatusCodeEnum.SUCCESS.getCode(),"查询成功",list);
+        return new Result<>(true, StatusCodeEnum.SUCCESS.getCode(), "查询成功", list);
     }
 
     /**
      * @Description 分页查询品牌数据
      * @Param [page, size]
-     * @Return com.changgou.entity.Result<com.github.pagehelper.PageInfo<com.changgou.goods.pojo.Brand>>
+     * @Return com.changgou.entity.Result<com.github.pagehelper.PageInfo < com.changgou.goods.pojo.Brand>>
      * @Date 下午11:23 2021/4/29
      * @Author brick
      **/
-    @GetMapping(value = "/search/{page}/{size}" )
-    public Result<PageInfo<Brand>> findPage(@PathVariable Integer page, @PathVariable Integer size){
-        PageInfo<Brand> pageList = brandService.findPage(null,page, size);
-        return new Result<>(true,StatusCodeEnum.SUCCESS.getCode(), "查询成功",pageList);
+    @GetMapping(value = "/search/{page}/{size}")
+    public Result<PageInfo<Brand>> findPage(@PathVariable Integer page, @PathVariable Integer size) {
+        PageInfo<Brand> pageList = brandService.findPage(null, page, size);
+        return new Result<>(true, StatusCodeEnum.SUCCESS.getCode(), "查询成功", pageList);
     }
 
     /**
      * @Description 分页搜索品牌数据
      * @Param [searchMap, page, size]
-     * @Return com.changgou.entity.Result<com.github.pagehelper.PageInfo<com.changgou.goods.pojo.Brand>>
+     * @Return com.changgou.entity.Result<com.github.pagehelper.PageInfo < com.changgou.goods.pojo.Brand>>
      * @Date 下午11:26 2021/4/29
      * @Author brick
      **/
-    @PostMapping(value = "/search/{page}/{size}" )
+    @PostMapping(value = "/search/{page}/{size}")
     public Result<PageInfo<Brand>> findPage(@RequestBody Brand brand,
-                                            @PathVariable Integer page, @PathVariable Integer size){
+                                            @PathVariable Integer page, @PathVariable Integer size) {
         PageInfo<Brand> pageList = brandService.findPage(brand, page, size);
-        return new Result<>(true,StatusCodeEnum.SUCCESS.getCode(), "查询成功",pageList);
+        return new Result<>(true, StatusCodeEnum.SUCCESS.getCode(), "查询成功", pageList);
     }
 
     @Autowired

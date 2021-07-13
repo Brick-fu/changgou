@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.changgou.goods.dao.AlbumMapper">
+
+    <select id="findPage" parameterType="com.changgou.goods.pojo.Album" resultType="com.changgou.goods.pojo.Album">
+        SELECT * FROM  tb_album
+        <where>
+            <if test="id != null">AND id = #{id}</if>
+            <if test="title != null">AND title = #{title}</if>
+            <if test="image != null">AND image = #{image}</if>
+        </where>
+    </select>
+
+    <select id="findList" resultType="com.changgou.goods.pojo.Album">
+        SELECT * FROM  tb_album
+    </select>
+
+    <update id="update" parameterType="com.changgou.goods.pojo.Album">
+        UPDATE tb_album
+        <set>
+            <if test="title != null">
+                title = #{title},
+            </if>
+            <if test="image != null">
+                image = #{image},
+            </if>
+            <if test="image_items != null">
+                image_items = #{image_items},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <delete id="delete" parameterType="java.lang.Long">
+        DELETE FROM  tb_album  where id = #{id}
+    </delete>
+
+    <insert id="add" parameterType="com.changgou.goods.pojo.Album">
+        INSERT INTO tb_album (title, image, image_items) VALUES(#{title}, #{image}, #{image_items});
+    </insert>
+
+    <select id="findById" parameterType="java.lang.Long" resultType="com.changgou.goods.pojo.Album">
+        select * from tb_album where id = #{id}
+    </select>
+</mapper>
