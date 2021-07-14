@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.changgou.goods.dao.SpecMapper">
+    <select id="findList" resultType="com.changgou.goods.pojo.Spec">
+        select * from tb_spec
+    </select>
+
+    <select id="findById" parameterType="int" resultType="com.changgou.goods.pojo.Spec">
+        select * from tb_spec where id = #{id}
+    </select>
+
+    <select id="findList" parameterType="com.changgou.goods.pojo.Spec" resultType="com.changgou.goods.pojo.Spec">
+        select * from tb_spec
+        <trim prefix="where" prefixOverrides="AND">
+            <if test="id != null">AND id = #{id}</if>
+            <if test="name != null">AND name like CONCAT('%',#{name},'%')</if>
+            <if test="options != null">AND options = #{options}</if>
+            <if test="seq != null">AND seq = #{seq}</if>
+            <if test="templateId != null">AND template_id = #{templateId}</if>
+        </trim>
+    </select>
+
+    <insert id="add" parameterType="com.changgou.goods.pojo.Spec">
+        INSERT into tb_spec(id, name, options, seq, template_id) values(#{id},#{name},#{options},#{seq},#{templateId});
+    </insert>
+
+    <update id="update" parameterType="com.changgou.goods.pojo.Spec">
+        UPDATE tb_spec
+        <set>
+            <if test="name != null">
+                name = #{name},
+            </if>
+            <if test="options != null">
+                options = #{options},
+            </if>
+            <if test="seq != null">
+                seq = #{seq},
+            </if>
+            <if test="templateId != null">
+                template_id = #{templateId},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <delete id="delete" parameterType="int">
+        DELETE FROM  tb_spec  where id = #{id}
+    </delete>
+
+</mapper>

@@ -26,7 +26,7 @@ public class AlbumController {
     * @Date 下午10:54 2021/6/9
     * @Author brick
     **/
-    @PostMapping(value = "/search/page/size" )
+    @PostMapping(value = "/search/{page}/{size}" )
     public Result<PageInfo<Album>> findPage(@RequestBody(required = false) Album album, @PathVariable int page, @PathVariable  int size){
         //执行搜索
         PageInfo<Album> pageInfo = albumService.findPage(album, page, size);
@@ -42,7 +42,7 @@ public class AlbumController {
     * @Date 下午11:03 2021/6/9
     * @Author brick
     **/
-    @GetMapping(value = "/search/page/size" )
+    @GetMapping(value = "/search/{page}/{size}" )
     public Result<PageInfo<Album>> findPage(@PathVariable int page, @PathVariable int size){
         //分页查询
         PageInfo<Album> pageInfo = albumService.findPage(page, size);
@@ -71,7 +71,7 @@ public class AlbumController {
      * @Date 下午10:53 2021/6/9
      * @Author brick
      **/
-    @DeleteMapping(value = "/id" )
+    @DeleteMapping(value = "/{id}" )
     public Result<Void> delete(@PathVariable Long id){
         albumService.delete(id);
         return new Result<>(true,StatusCodeEnum.SUCCESS.getCode(),"删除成功");
@@ -85,7 +85,7 @@ public class AlbumController {
      * @Date 下午10:52 2021/6/9
      * @Author brick
      **/
-    @PutMapping(value="/id")
+    @PutMapping(value="/{id}")
     public Result<Void> update(@RequestBody  Album album,@PathVariable Long id){
         //设置主键值
         album.setId(id);
@@ -116,7 +116,7 @@ public class AlbumController {
      * @Date 下午10:52 2021/6/9
      * @Author brick
      **/
-    @GetMapping("/id")
+    @GetMapping("/{id}")
     public Result<Album> findById(@PathVariable Long id){
         //根据ID查询
         Album album = albumService.findById(id);

@@ -1,6 +1,5 @@
 package com.changgou.goods.service.impl;
 
-import com.changgou.entity.Page;
 import com.changgou.goods.dao.BrandMapper;
 import com.changgou.goods.pojo.Brand;
 import com.changgou.goods.service.BrandService;
@@ -19,7 +18,7 @@ public class BrandServiceImpl implements BrandService {
     @Autowired
     private BrandMapper brandMapper;
 
-    Logger logger = LoggerFactory.getLogger(BrandServiceImpl.class);
+    private static final Logger logger = LoggerFactory.getLogger(BrandServiceImpl.class);
 
     @Override
     public List<Brand> findAll() {

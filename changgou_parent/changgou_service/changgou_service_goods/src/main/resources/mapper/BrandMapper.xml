@@ -13,10 +13,10 @@
 
     <select id="findList" parameterType="com.changgou.goods.pojo.Brand" resultType="com.changgou.goods.pojo.Brand">
         select * from tb_brand
-        <where>
-            <if test="name != null">or name like CONCAT('%',#{name},'%')</if>
-            <if test="letter != null">or letter like CONCAT('%',#{letter},'%')</if>
-        </where>
+        <trim prefix="where" prefixOverrides="AND">
+            <if test="name != null">AND name like CONCAT('%',#{name},'%')</if>
+            <if test="letter != null">AND letter like CONCAT('%',#{letter},'%')</if>
+        </trim>
     </select>
 
     <insert id="add" parameterType="com.changgou.goods.pojo.Brand">

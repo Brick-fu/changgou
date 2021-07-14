@@ -6,11 +6,11 @@
 
     <select id="findPage" parameterType="com.changgou.goods.pojo.Album" resultType="com.changgou.goods.pojo.Album">
         SELECT * FROM  tb_album
-        <where>
+        <trim prefix="where" prefixOverrides="AND">
             <if test="id != null">AND id = #{id}</if>
             <if test="title != null">AND title = #{title}</if>
             <if test="image != null">AND image = #{image}</if>
-        </where>
+        </trim>
     </select>
 
     <select id="findList" resultType="com.changgou.goods.pojo.Album">

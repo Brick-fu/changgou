@@ -15,6 +15,8 @@ import java.io.Serializable;
 @Table(name="tb_para")
 public class Para implements Serializable{
 
+	private static final long serialVersionUID = 1824717441209601682L;
+
 	@ApiModelProperty(value = "id",required = false)
 	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

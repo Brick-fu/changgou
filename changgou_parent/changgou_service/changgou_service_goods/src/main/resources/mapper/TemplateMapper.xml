@@ -13,12 +13,12 @@
 
     <select id="findList" parameterType="com.changgou.goods.pojo.Template" resultType="com.changgou.goods.pojo.Template">
         select * from tb_template
-        <where>
-            <if test="id != null">or id = #{id}</if>
-            <if test="name != null">or name like CONCAT('%',#{name},'%')</if>
-            <if test="specNum != null">or spec_num = #{specNum}</if>
-            <if test="paraNum != null">or para_num = #{paraNum}</if>
-        </where>
+        <trim prefix="where" prefixOverrides="AND">
+            <if test="id != null">AND id = #{id}</if>
+            <if test="name != null">AND name like CONCAT('%',#{name},'%')</if>
+            <if test="specNum != null">AND spec_num = #{specNum}</if>
+            <if test="paraNum != null">AND para_num = #{paraNum}</if>
+        </trim>
     </select>
 
     <insert id="add" parameterType="com.changgou.goods.pojo.Template">

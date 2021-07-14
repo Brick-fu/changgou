@@ -26,7 +26,7 @@ public class TemplateController {
      * @param size
      * @return
      */
-    @PostMapping(value = "/search/page/size" )
+    @PostMapping(value = "/search/{page}/{size}" )
     public Result<PageInfo<Template>> findPage(@RequestBody(required = false) Template template, @PathVariable int page, @PathVariable  int size){
         //执行搜索
         PageInfo<Template> pageInfo = templateService.findPage(template, page, size);
@@ -40,7 +40,7 @@ public class TemplateController {
      * @param size:每页显示多少条
      * @return
      */
-    @GetMapping(value = "/search/page/size" )
+    @GetMapping(value = "/search/{page}/{size}" )
     public Result<PageInfo<Template>> findPage(@PathVariable  int page, @PathVariable  int size){
         //分页查询
         PageInfo<Template> pageInfo = templateService.findPage(page, size);
@@ -65,7 +65,7 @@ public class TemplateController {
      * @param id
      * @return
      */
-    @DeleteMapping(value = "/id" )
+    @DeleteMapping(value = "/{id}" )
     public Result<Void> delete(@PathVariable Integer id){
         templateService.delete(id);
         return new Result<>(true,StatusCodeEnum.SUCCESS.getCode(),"删除成功");
@@ -77,7 +77,7 @@ public class TemplateController {
      * @param id
      * @return
      */
-    @PutMapping(value="/id")
+    @PutMapping(value="/{id}")
     public Result<Void> update(@RequestBody  Template template,@PathVariable Integer id){
         //设置主键值
         template.setId(id);
@@ -104,7 +104,7 @@ public class TemplateController {
      * @param id
      * @return
      */
-    @GetMapping("/id")
+    @GetMapping("/{id}")
     public Result<Template> findById(@PathVariable Integer id){
         //根据ID查询
         Template template = templateService.findById(id);
