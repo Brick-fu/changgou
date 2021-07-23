@@ -1,7 +1,9 @@
 package com.changgou.goods.service.impl;
 
 import com.changgou.goods.dao.SpecMapper;
+import com.changgou.goods.pojo.Category;
 import com.changgou.goods.pojo.Spec;
+import com.changgou.goods.service.CategoryService;
 import com.changgou.goods.service.SpecService;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
@@ -19,6 +21,8 @@ public class SpecServiceImpl implements SpecService {
 
     @Autowired
     private SpecMapper specMapper;
+    @Autowired
+    private CategoryService categoryService;
 
     @Override
     public PageInfo<Spec> findPage(Spec spec, int page, int size) {
@@ -70,5 +74,20 @@ public class SpecServiceImpl implements SpecService {
     public List<Spec> findAll() {
         logger.info("SpecServiceImpl.findAll");
         return specMapper.findAll();
+    }
+
+    /*
+     * @Description 通过分类id获取规格参数
+     * @Param [categoryId]
+     * @Return java.util.List<com.changgou.goods.pojo.Spec>
+     * @Date 下午11:15 2021/7/23
+     * @Author brick
+     **/
+    @Override
+    public List<Spec> findByCategory(Integer categoryId) {
+        Category category = categoryService.findById(categoryId);
+        Spec spec = new Spec();
+        spec.setTemplateId(category.getTemplateId());
+        return specMapper.findList(spec);
     }
 }

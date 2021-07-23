@@ -60,4 +60,13 @@ public interface SpecService {
      * @return
      */
     List<Spec> findAll();
+
+    /**
+     * @Description 通过分类查询规格
+     * @Param
+     * @Return
+     * @Date 下午11:11 2021/7/23
+     * @Author brick
+     **/
+    List<Spec> findByCategory(Integer categoryId);
 }

@@ -131,6 +131,19 @@ public class BrandController {
         PageInfo<Brand> pageList = brandService.findPage(brand, page, size);
         return new Result<>(true, StatusCodeEnum.SUCCESS.getCode(), "查询成功", pageList);
     }
+    
+    /*
+     * @Description 根据分类ID获取品牌信息
+     * @Param 
+     * @Return 
+     * @Date 下午10:00 2021/7/23
+     * @Author brick
+     **/
+    @GetMapping(value = "/category/{id}")
+    public Result<List<Brand>> findByCategory(@PathVariable(value = "id") Integer categoryId){
+        List<Brand> list = brandService.findByCategory(categoryId);
+        return new Result<>(true,StatusCodeEnum.SUCCESS.getCode(),"查询成功",list);
+    }
 
     @Autowired
     public void setBrandService(BrandService brandService) {

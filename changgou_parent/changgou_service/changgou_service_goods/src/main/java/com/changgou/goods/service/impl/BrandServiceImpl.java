@@ -1,5 +1,6 @@
 package com.changgou.goods.service.impl;
 
+import com.changgou.entity.Result;
 import com.changgou.goods.dao.BrandMapper;
 import com.changgou.goods.pojo.Brand;
 import com.changgou.goods.service.BrandService;
@@ -61,5 +62,10 @@ public class BrandServiceImpl implements BrandService {
             brands = brandMapper.findList(brand);
         }
         return new PageInfo<>(brands);
+    }
+
+    @Override
+    public List<Brand> findByCategory(Integer categoryId) {
+        return brandMapper.findByCategory(categoryId);
     }
 }

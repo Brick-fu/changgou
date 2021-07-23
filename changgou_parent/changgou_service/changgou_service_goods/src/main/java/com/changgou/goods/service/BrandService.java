@@ -1,5 +1,6 @@
 package com.changgou.goods.service;
 
+import com.changgou.entity.Result;
 import com.changgou.goods.pojo.Brand;
 import com.github.pagehelper.PageInfo;
 
@@ -20,4 +21,5 @@ public interface BrandService {
 
     PageInfo<Brand> findPage(Brand brand, int page, int size);
 
+    List<Brand> findByCategory(Integer categoryId);
 }

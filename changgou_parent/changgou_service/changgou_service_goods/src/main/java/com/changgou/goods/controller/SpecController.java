@@ -88,7 +88,7 @@ public class SpecController {
      * @return
      */
     @PostMapping
-    public Result<Void> add(@RequestBody   Spec spec){
+    public Result<Void> add(@RequestBody  Spec spec){
         specService.add(spec);
         return new Result<>(true,StatusCodeEnum.SUCCESS.getCode(),"添加成功");
     }
@@ -113,5 +113,18 @@ public class SpecController {
     public Result<List<Spec>> findAll(){
         List<Spec> list = specService.findAll();
         return new Result<>(true, StatusCodeEnum.SUCCESS.getCode(),"查询成功",list) ;
+    }
+
+    /**
+     * @Description 通过分类id获取规格参数
+     * @Param [categoryId]
+     * @Return com.changgou.entity.Result<java.util.List<com.changgou.goods.pojo.Spec>>
+     * @Date 下午11:18 2021/7/23
+     * @Author brick
+     **/
+    @GetMapping(value = "/category/{id}")
+    public Result<List<Spec>> findByCategory(@PathVariable(value="id") Integer categoryId){
+        List<Spec> specs = specService.findByCategory(categoryId);
+        return new Result<>(true, StatusCodeEnum.SUCCESS.getCode(),"查询成功",specs) ;
     }
 }
