@@ -2,6 +2,7 @@ package com.changgou.goods;
 
 import com.alibaba.druid.support.http.StatViewServlet;
 import com.alibaba.druid.support.http.WebStatFilter;
+import com.changgou.utils.IdWorker;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -17,6 +18,11 @@ public class GoodsApplication {
 
     public static void main(String[] args) {
         SpringApplication.run(GoodsApplication.class,args);
+    }
+
+    @Bean
+    public IdWorker idWorker(){
+        return new IdWorker(0,0);
     }
 
     /**

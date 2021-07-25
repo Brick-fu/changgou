@@ -253,4 +253,28 @@ public class Sku implements Serializable{
 	}
 
 
+	@Override
+	public String toString() {
+		return "Sku{" +
+				"id=" + id +
+				", sn='" + sn + '\'' +
+				", name='" + name + '\'' +
+				", price=" + price +
+				", num=" + num +
+				", alertNum=" + alertNum +
+				", image='" + image + '\'' +
+				", images='" + images + '\'' +
+				", weight=" + weight +
+				", createTime=" + createTime +
+				", updateTime=" + updateTime +
+				", spuId=" + spuId +
+				", categoryId=" + categoryId +
+				", categoryName='" + categoryName + '\'' +
+				", brandName='" + brandName + '\'' +
+				", spec='" + spec + '\'' +
+				", saleNum=" + saleNum +
+				", commentNum=" + commentNum +
+				", status='" + status + '\'' +
+				'}';
+	}
 }

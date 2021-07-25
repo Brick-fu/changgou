@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.changgou.goods.dao.SkuMapper">
+    <select id="findList" parameterType="com.changgou.goods.pojo.Sku" resultType="com.changgou.goods.pojo.Sku">
+        select
+        id, sn, name, price, num, alert_num, image, images, weight, create_time, update_time, spu_id, category_id,
+        category_name, brand_name, spec, sale_num, comment_num, status
+        from tb_sku
+        <where>
+            <if test="id != null">
+                and id = #{id}
+            </if>
+            <if test="sn != null and sn != ''">
+                and sn = #{sn}
+            </if>
+            <if test="name != null and name != ''">
+                and name = #{name}
+            </if>
+            <if test="price != null">
+                and price = #{price}
+            </if>
+            <if test="num != null">
+                and num = #{num}
+            </if>
+            <if test="alertNum != null">
+                and alert_num = #{alertNum}
+            </if>
+            <if test="image != null and image != ''">
+                and image = #{image}
+            </if>
+            <if test="images != null and images != ''">
+                and images = #{images}
+            </if>
+            <if test="weight != null">
+                and weight = #{weight}
+            </if>
+            <if test="createTime != null">
+                and create_time = #{createTime}
+            </if>
+            <if test="updateTime != null">
+                and update_time = #{updateTime}
+            </if>
+            <if test="spuId != null">
+                and spu_id = #{spuId}
+            </if>
+            <if test="categoryId != null">
+                and category_id = #{categoryId}
+            </if>
+            <if test="categoryName != null and categoryName != ''">
+                and category_name = #{categoryName}
+            </if>
+            <if test="brandName != null and brandName != ''">
+                and brand_name = #{brandName}
+            </if>
+            <if test="spec != null and spec != ''">
+                and spec = #{spec}
+            </if>
+            <if test="saleNum != null">
+                and sale_num = #{saleNum}
+            </if>
+            <if test="commentNum != null">
+                and comment_num = #{commentNum}
+            </if>
+            <if test="status != null and status != ''">
+                and status = #{status}
+            </if>
+        </where>
+    </select>
+
+    <update id="update" parameterType="com.changgou.goods.pojo.Sku">
+        update tb_sku
+        <set>
+            <if test="sn != null and sn != ''">
+                sn = #{sn},
+            </if>
+            <if test="name != null and name != ''">
+                name = #{name},
+            </if>
+            <if test="price != null">
+                price = #{price},
+            </if>
+            <if test="num != null">
+                num = #{num},
+            </if>
+            <if test="alertNum != null">
+                alert_num = #{alertNum},
+            </if>
+            <if test="image != null and image != ''">
+                image = #{image},
+            </if>
+            <if test="images != null and images != ''">
+                images = #{images},
+            </if>
+            <if test="weight != null">
+                weight = #{weight},
+            </if>
+            <if test="createTime != null">
+                create_time = #{createTime},
+            </if>
+            <if test="updateTime != null">
+                update_time = #{updateTime},
+            </if>
+            <if test="spuId != null">
+                spu_id = #{spuId},
+            </if>
+            <if test="categoryId != null">
+                category_id = #{categoryId},
+            </if>
+            <if test="categoryName != null and categoryName != ''">
+                category_name = #{categoryName},
+            </if>
+            <if test="brandName != null and brandName != ''">
+                brand_name = #{brandName},
+            </if>
+            <if test="spec != null and spec != ''">
+                spec = #{spec},
+            </if>
+            <if test="saleNum != null">
+                sale_num = #{saleNum},
+            </if>
+            <if test="commentNum != null">
+                comment_num = #{commentNum},
+            </if>
+            <if test="status != null and status != ''">
+                status = #{status},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+</mapper>

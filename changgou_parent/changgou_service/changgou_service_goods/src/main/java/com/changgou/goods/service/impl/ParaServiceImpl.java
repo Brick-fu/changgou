@@ -2,7 +2,9 @@ package com.changgou.goods.service.impl;
 
 import com.changgou.goods.controller.ParaController;
 import com.changgou.goods.dao.ParaMapper;
+import com.changgou.goods.pojo.Category;
 import com.changgou.goods.pojo.Para;
+import com.changgou.goods.service.CategoryService;
 import com.changgou.goods.service.ParaService;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
@@ -20,6 +22,8 @@ public class ParaServiceImpl implements ParaService {
 
     @Autowired
     private ParaMapper paraMapper;
+    @Autowired
+    private CategoryService categoryService;
 
     @Override
     public PageInfo<Para> findPage(Para para, int page, int size) {
@@ -71,5 +75,18 @@ public class ParaServiceImpl implements ParaService {
     public List<Para> findAll() {
         logger.info("ParaServiceImpl.findAll");
         return paraMapper.findAll();
+    }
+
+    /*
+     * @Desc 根据分类ID获取参数列表
+     * @Date 下午3:22 2021/7/24
+     * @Author 
+     **/
+    @Override
+    public List<Para> findByCategory(Integer categoryId) {
+        Category category = categoryService.findById(categoryId);
+        Para para = new Para();
+        para.setTemplateId(category.getTemplateId());
+        return paraMapper.findList(para);
     }
 }
