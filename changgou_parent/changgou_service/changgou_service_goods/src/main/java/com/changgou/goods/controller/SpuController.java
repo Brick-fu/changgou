@@ -6,12 +6,15 @@ import com.changgou.goods.pojo.Goods;
 import com.changgou.goods.pojo.Spu;
 import com.changgou.goods.service.SpuService;
 import com.github.pagehelper.PageInfo;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping(value = "/spu")
 @CrossOrigin
+@Api(value = "spu类操作")
 public class SpuController {
 
     @Autowired
@@ -24,6 +27,7 @@ public class SpuController {
      * @param size
      * @return
      */
+    @ApiOperation(value = "查询spu",notes = "多条件分页查询数据")
     @PostMapping(value = "/search/{page}/{size}" )
     public Result<PageInfo<Spu>> findPage(@RequestBody(required = false) Spu spu, @PathVariable  int page, @PathVariable  int size){
     //执行搜索
