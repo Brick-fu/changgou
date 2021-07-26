@@ -29,7 +29,7 @@
         from tb_spu
     </select>
 
-    <select id="findById" parameterType="int" resultType="com.changgou.goods.pojo.Spu">
+    <select id="findById" parameterType="long" resultType="com.changgou.goods.pojo.Spu">
         select id,
                sn,
                name,
@@ -212,8 +212,16 @@
         where id = #{id}
     </update>
 
-    <delete id="delete" parameterType="int">
+    <delete id="delete" parameterType="long">
         DELETE FROM  tb_spu  where id = #{id}
     </delete>
 
+    <select id="batchLoadingAndUnloading" parameterType="map">
+        update tb_spu set is_marketable = #{isMarketable}
+        where is_marketable = 0 AND status = 1 AND is_delete = 0
+        AND id IN
+        <foreach collection="ids" item="id" index="index" open="(" close=")" separator=",">
+            #{id}
+        </foreach>
+    </select>
 </mapper>

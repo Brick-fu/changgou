@@ -6,12 +6,11 @@ import com.changgou.goods.pojo.Album;
 import com.changgou.goods.service.AlbumService;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@Controller
+@RestController
 @RequestMapping("/album")
 @CrossOrigin
 public class AlbumController {
@@ -26,7 +25,7 @@ public class AlbumController {
     * @Date 下午10:54 2021/6/9
     * @Author brick
     **/
-    @PostMapping(value = "/search/{page}/{size}" )
+    @PostMapping(value = "/search/{page}/{size}")
     public Result<PageInfo<Album>> findPage(@RequestBody(required = false) Album album, @PathVariable int page, @PathVariable  int size){
         //执行搜索
         PageInfo<Album> pageInfo = albumService.findPage(album, page, size);

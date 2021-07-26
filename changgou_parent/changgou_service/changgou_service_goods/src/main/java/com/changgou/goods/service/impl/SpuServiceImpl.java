@@ -1,11 +1,14 @@
 package com.changgou.goods.service.impl;
 
 import com.alibaba.fastjson.JSON;
+import com.changgou.enums.GoodsEnum;
+import com.changgou.enums.StatusCodeEnum;
+import com.changgou.exception.BizException;
+import com.changgou.goods.dao.BrandMapper;
+import com.changgou.goods.dao.CategoryMapper;
 import com.changgou.goods.dao.SkuMapper;
 import com.changgou.goods.dao.SpuMapper;
 import com.changgou.goods.pojo.*;
-import com.changgou.goods.service.BrandService;
-import com.changgou.goods.service.CategoryService;
 import com.changgou.goods.service.SpuService;
 import com.changgou.utils.IdWorker;
 import com.github.pagehelper.PageHelper;
@@ -30,21 +33,73 @@ public class SpuServiceImpl implements SpuService {
     @Autowired
     private IdWorker idWorker;
     @Autowired
-    private CategoryService categoryService;
+    private CategoryMapper categoryMapper;
     @Autowired
-    private BrandService brandService;
+    private BrandMapper brandMapper;
 
     private final Logger logger = LoggerFactory.getLogger(SpuServiceImpl.class);
+
+    @Override
+    public void putOnShelves(Long spuId) {
+        Spu spu = spuMapper.findById(spuId);
+        if(GoodsEnum.DELETE_YES.getCode().equals(spu.getIsDelete())){
+            throw new BizException(StatusCodeEnum.GOODS_DELETED);
+        }
+        if(!GoodsEnum.AUDITED.getCode().equals(spu.getStatus())){
+            throw new BizException(StatusCodeEnum.AUDITED_NO_PASS_TIP);
+        }
+        spu.setIsMarketable(GoodsEnum.MARKETABLE_YES.getCode()); //上架
+        spuMapper.update(spu);
+    }
+
+    @Override
+    public void pullOffShelves(Long spuId) {
+        Spu spu = spuMapper.findById(spuId);
+        if(GoodsEnum.DELETE_YES.getCode().equals(spu.getIsDelete())){
+            throw new BizException(StatusCodeEnum.GOODS_DELETED);
+        }
+        spu.setIsMarketable(GoodsEnum.MARKETABLE_NO.getCode()); //下架
+        spuMapper.update(spu);
+    }
+
+    @Override
+    public void audit(Long spuId) {
+        Spu spu = spuMapper.findById(spuId);
+        if(GoodsEnum.DELETE_YES.getCode().equals(spu.getIsDelete())){
+            throw new BizException(StatusCodeEnum.GOODS_DELETED);
+        }
+        spu.setStatus(GoodsEnum.AUDITED.getCode()); //审核通过
+        spu.setIsMarketable(GoodsEnum.MARKETABLE_YES.getCode()); //上架
+        spuMapper.update(spu);
+    }
+
+    @Override
+    public Goods findGoodsById(Long spuId) {
+        Spu spu = spuMapper.findById(spuId);
+        Sku sku = new Sku();
+        sku.setSpuId(spuId);
+        List<Sku> skus = skuMapper.findList(sku);
+        Goods goods = new Goods();
+        goods.setSpu(spu);
+        goods.setSkuList(skus);
+        return goods;
+    }
 
     @Override
     public void saveGoods(Goods goods) {
         logger.info("SkuServiceImpl.saveGoods,{},{}",goods.getSpu().toString(),goods.getSkuList().toString());
         Spu spu = goods.getSpu();
-        spu.setId(idWorker.nextId());
-        spuMapper.add(spu);
+        Long spuId = spu.getId();
+        if(spuId == null){
+            spu.setId(idWorker.nextId());
+            spuMapper.add(spu);
+        }else{
+            spuMapper.update(spu);
+            skuMapper.deleteBySpuId(spuId);
+        }
         Integer category3Id = spu.getCategory3Id();
-        Category category = categoryService.findById(category3Id);
-        Brand brand = brandService.findById(spu.getBrandId());
+        Category category = categoryMapper.findById(category3Id);
+        Brand brand = brandMapper.findById(spu.getBrandId());
         List<Sku> skus = goods.getSkuList();
         for (Sku sku :skus) {
             if(StringUtils.isEmpty(sku.getSpec())){
@@ -114,8 +169,13 @@ public class SpuServiceImpl implements SpuService {
      * @Author 
      **/
     @Override
-    public void delete(Integer id) {
+    public void delete(Long id) {
         logger.info("SpuServiceImpl.delete,{}",id);
+        Spu spu = spuMapper.findById(id);
+        //检查是否被逻辑删除  ,必须先逻辑删除后才能物理删除
+        if(!GoodsEnum.DELETE_YES.getCode().equals(spu.getIsDelete())){
+            throw new BizException(StatusCodeEnum.GOODS_CANNOT_DELETE);
+        }
         spuMapper.delete(id);
     }
 
@@ -147,7 +207,7 @@ public class SpuServiceImpl implements SpuService {
      * @Author 
      **/
     @Override
-    public Spu findById(Integer id) {
+    public Spu findById(Long id) {
         logger.info("SpuServiceImpl.findById,{}",id);
         return spuMapper.findById(id);
     }
@@ -161,5 +221,43 @@ public class SpuServiceImpl implements SpuService {
     public List<Spu> findAll() {
         logger.info("SpuServiceImpl.findAll");
         return spuMapper.findAll();
+    }
+
+    @Override
+    public int putMany(Long[] ids) {
+        return spuMapper.batchLoadingAndUnloading(GoodsEnum.MARKETABLE_YES.getCode(),ids);
+    }
+
+    @Override
+    public int pullMany(Long[] ids) {
+        return spuMapper.batchLoadingAndUnloading(GoodsEnum.MARKETABLE_NO.getCode(),ids);
+    }
+
+    @Override
+    public void logicDelete(Long spuId) {
+        Spu spu = spuMapper.findById(spuId);
+        //检查是否下架的商品
+        if (!GoodsEnum.MARKETABLE_NO.getCode().equals(spu.getIsMarketable())) {
+            throw new BizException(StatusCodeEnum.GOODS_MUST_PUT_ON_SHELVES);
+        }
+        //删除
+        spu.setIsDelete("1");
+        //未审核
+        spu.setStatus("0");
+        spuMapper.update(spu);
+    }
+
+    @Override
+    public void restore(Long spuId) {
+        Spu spu = spuMapper.findById(spuId);
+        //检查是否删除的商品
+        if (!GoodsEnum.DELETE_YES.getCode().equals(spu.getIsDelete())) {
+            throw new BizException(StatusCodeEnum.GOODS_NOT_DELETE);
+        }
+        //未删除
+        spu.setIsDelete("0");
+        //未审核
+        spu.setStatus("0");
+        spuMapper.update(spu);
     }
 }

@@ -23,7 +23,15 @@ public interface SkuMapper {
      * @Skum id
      */
     @Delete("DELETE FROM tb_sku WHERE id  = #{id}")
-    void delete(Integer id);
+    void delete(Long id);
+
+    /*
+     * @Desc 通过spuId删除sku
+     * @Date 下午2:09 2021/7/25
+     * @Author 
+     **/
+    @Delete("DELETE FROM tb_sku WHERE spu_id  = #{spuId}")
+    void deleteBySpuId(Long spuId);
 
     /***
      * 修改Sku数据
@@ -44,7 +52,7 @@ public interface SkuMapper {
      * @return
      */
     @Select("SELECT * from tb_sku WHERE id = #{id}")
-    Sku findById(Integer id);
+    Sku findById(Long id);
 
     /***
      * 查询所有Sku

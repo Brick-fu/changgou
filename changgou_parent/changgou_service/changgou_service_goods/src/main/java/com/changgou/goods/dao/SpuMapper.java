@@ -1,6 +1,7 @@
 package com.changgou.goods.dao;
 
 import com.changgou.goods.pojo.Spu;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -19,7 +20,7 @@ public interface SpuMapper {
      * 删除Spu
      * @Spum id
      */
-    void delete(Integer id);
+    void delete(Long id);
 
     /***
      * 修改Spu数据
@@ -38,11 +39,19 @@ public interface SpuMapper {
      * @Spum id
      * @return
      */
-    Spu findById(Integer id);
+    Spu findById(Long id);
 
     /***
      * 查询所有Spu
      * @return
      */
     List<Spu> findAll();
+    
+    /*
+     * @Desc 批量上下架
+     * @Date 下午11:18 2021/7/25
+     * @Author 
+     **/
+
+    int batchLoadingAndUnloading(@Param(value = "isMarketable") String isMarketable, @Param(value = "ids") Long[] ids);
 }

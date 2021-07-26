@@ -36,7 +36,7 @@ public interface SkuService {
      * 删除Sku
      * @param id
      */
-    void delete(Integer id);
+    void delete(Long id);
 
     /***
      * 修改Sku数据
@@ -55,7 +55,7 @@ public interface SkuService {
      * @param id
      * @return
      */
-    Sku findById(Integer id);
+    Sku findById(Long id);
 
     /***
      * 查询所有Sku

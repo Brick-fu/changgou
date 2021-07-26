@@ -8,6 +8,30 @@ import java.util.List;
 
 public interface SpuService {
 
+    /***
+     * 商品上架
+     * @param spuId
+     */
+    void putOnShelves(Long spuId);
+
+    /***
+     * 商品下架
+     * @param spuId
+     */
+    void pullOffShelves(Long spuId);
+
+    /***
+     * 商品审核
+     * @param spuId
+     */
+    void audit(Long spuId);
+
+    /***
+     * 根据SPU的ID查找SPU以及对应的SKU集合
+     * @param spuId
+     */
+    Goods findGoodsById(Long spuId);
+
     /*
      * @Desc 保存商品
      * @Date 下午10:03 2021/7/24
@@ -43,7 +67,7 @@ public interface SpuService {
      * 删除Spu
      * @param id
      */
-    void delete(Integer id);
+    void delete(Long id);
 
     /***
      * 修改Spu数据
@@ -62,11 +86,37 @@ public interface SpuService {
      * @param id
      * @return
      */
-    Spu findById(Integer id);
+    Spu findById(Long id);
 
     /***
      * 查询所有Spu
      * @return
      */
     List<Spu> findAll();
+
+    /*
+     * @Desc 批量上架
+     * @Date 下午11:24 2021/7/25
+     * @Author 
+     **/
+    int putMany(Long[] ids);
+
+    /*
+     * @Desc 批量下架
+     * @Date 下午11:37 2021/7/25
+     * @Author 
+     **/
+    int pullMany(Long[] ids);
+
+    /***
+     * 逻辑删除
+     * @param spuId
+     */
+    void logicDelete(Long spuId);
+
+    /***
+     * 还原被删除商品
+     * @param spuId
+     */
+    void restore(Long spuId);
 }

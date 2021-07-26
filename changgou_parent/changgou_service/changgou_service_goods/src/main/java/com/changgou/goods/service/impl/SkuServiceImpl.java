@@ -1,24 +1,16 @@
 package com.changgou.goods.service.impl;
 
-import com.alibaba.fastjson.JSON;
 import com.changgou.goods.dao.SkuMapper;
-import com.changgou.goods.dao.SpuMapper;
-import com.changgou.goods.pojo.*;
-import com.changgou.goods.service.BrandService;
-import com.changgou.goods.service.CategoryService;
+import com.changgou.goods.pojo.Sku;
 import com.changgou.goods.service.SkuService;
-import com.changgou.utils.IdWorker;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
-import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Date;
 import java.util.List;
-import java.util.Map;
 
 @Service
 public class SkuServiceImpl implements SkuService {
@@ -71,7 +63,7 @@ public class SkuServiceImpl implements SkuService {
      * @Author 
      **/
     @Override
-    public void delete(Integer id) {
+    public void delete(Long id) {
         logger.info("SkuServiceImpl.delete,{}",id);
         skuMapper.delete(id);
     }
@@ -104,7 +96,7 @@ public class SkuServiceImpl implements SkuService {
      * @Author 
      **/
     @Override
-    public Sku findById(Integer id) {
+    public Sku findById(Long id) {
         logger.info("SkuServiceImpl.findById,{}",id);
         return skuMapper.findById(id);
     }

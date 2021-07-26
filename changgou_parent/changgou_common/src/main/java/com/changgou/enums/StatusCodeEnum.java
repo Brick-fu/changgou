@@ -10,7 +10,16 @@ public enum StatusCodeEnum {
     REPERROR("100005","重复操作"),
     NOTFOUNDERROR("100006","没有对应的抢购数据"),
     /*文件上传服务码*/
-    MINIOCLINT_CREATE_FAIL("200001","minioClient创建失败");
+    MINIOCLINT_CREATE_FAIL("200001","minioClient创建失败"),
+    /*商品中心服务码*/
+    GOODS_DELETED("300001","该商品已经删除！"),
+    AUDITED_NO_PASS_TIP("300002","未通过审核的商品不能上架！"),
+    GOODS_MUST_PUT_ON_SHELVES("300003","必须先下架再删除！"),
+    GOODS_NOT_DELETE("300004","此商品未删除！"),
+    GOODS_CANNOT_DELETE("300005","此商品不能删除！"),
+
+    ;
+
 
 
     private String code;
