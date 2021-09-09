@@ -8,7 +8,7 @@
 <Configuration status="warn" monitorInterval="30">
     <Properties>
         <property name="sysCode">changgou</property>
-        <property name="appCode">canal</property>
+        <property name="appCode">content</property>
         <property name="LOG_EXCEPTION_CONVERSION_WORD">%xwEx</property>
         <property name="LOG_LEVEL_PATTERN">%5p</property>
         <property name="LOG_DATEFORMAT_PATTERN">yyyy-MM-dd HH:mm:ss.SSS</property>
@@ -64,7 +64,7 @@
             <appender-ref ref="Console"/>
             <appender-ref ref="RollingFile"/>
         </root>
-        <logger name="com.changgou.canal.dao" level="DEBUG"/>
+        <logger name="com.changgou.content.dao" level="DEBUG"/>
         <logger name="com.netflix.discovery" level="error"/>
         <logger name="org.springframework" level="error"/>
         <logger name="org.springframework.cloud" level="error"/>

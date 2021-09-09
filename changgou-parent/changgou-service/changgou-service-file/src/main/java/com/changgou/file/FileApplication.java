@@ -1,4 +1,4 @@
-package com.changgou;
+package com.changgou.file;
 
 import com.alibaba.druid.spring.boot.autoconfigure.DruidDataSourceAutoConfigure;
 import org.mybatis.spring.boot.autoconfigure.MybatisAutoConfiguration;

@@ -1,8 +1,8 @@
 server:
-  port: 18081
+  port: 18084
 spring:
   application:
-    name: changgou-goods
+    name: changgou-content
   datasource:
     type: com.alibaba.druid.pool.DruidDataSource
     driver‐class‐name: com.mysql.cj.jdbc.Driver
@@ -16,9 +16,6 @@ spring:
       pool-prepared-statements: true #是否缓存preparedStatement,mysql5.5+建议开启
       filters: stat,wall #配置扩展插件
       use-global-data-source-stat: true #合并多个DruidDataSource的监控数据
-  jackson:
-    time-zone: GMT+8
-    date-format: yyyy-MM-dd HH:mm:ss
 eureka:
   client:
     service‐url:
@@ -30,9 +27,9 @@ feign:
     enabled: true
 mybatis:
   configuration:
-    map-underscore-to-camel-case: true
+    map-underscore-to-camel-case: true #开启驼峰功能
   mapper-locations: classpath:mapper/*Mapper.xml
-  type-aliases-package: com.changgou.goods.pojo
+  type-aliases-package: com.changgou.content.pojo
 pagehelper:
   helper-dialect: mysql
   reasonable: true

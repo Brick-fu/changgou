@@ -64,7 +64,7 @@
             <appender-ref ref="Console"/>
             <appender-ref ref="RollingFile"/>
         </root>
-        <logger name="com.changgou.goods.dao" level="DEBUG"/>
+        <logger name="com.changgou.file.dao" level="DEBUG"/>
         <logger name="com.netflix.discovery" level="error"/>
         <logger name="org.springframework" level="error"/>
         <logger name="org.springframework.cloud" level="error"/>
