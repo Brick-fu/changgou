@@ -25,6 +25,11 @@ eureka:
 feign:
   hystrix:
     enabled: true
+management:
+  endpoints:
+    web:
+      exposure:
+        include: info,health
 mybatis:
   configuration:
     map-underscore-to-camel-case: true #开启驼峰功能

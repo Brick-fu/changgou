@@ -8,7 +8,7 @@
 <Configuration status="warn" monitorInterval="30">
     <Properties>
         <property name="sysCode">changgou</property>
-        <property name="appCode">goods</property>
+        <property name="appCode">search</property>
         <property name="LOG_EXCEPTION_CONVERSION_WORD">%xwEx</property>
         <property name="LOG_LEVEL_PATTERN">%5p</property>
         <property name="LOG_DATEFORMAT_PATTERN">yyyy-MM-dd HH:mm:ss.SSS</property>

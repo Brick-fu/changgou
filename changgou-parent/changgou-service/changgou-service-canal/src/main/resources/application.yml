@@ -28,6 +28,11 @@ eureka:
 feign:
   hystrix:
     enabled: true
+management:
+  endpoints:
+    web:
+      exposure:
+        include: info,health
 #hystrix 配置
 hystrix:
   command:

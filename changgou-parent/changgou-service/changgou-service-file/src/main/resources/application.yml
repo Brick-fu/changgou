@@ -17,6 +17,11 @@ eureka:
 feign:
   hystrix:
     enabled: true
+management:
+  endpoints:
+    web:
+      exposure:
+        include: info,health
 # MinIO对象存储相关配置.
 minio:
   endpoint: http://192.168.3.18:9090 #MinIO服务所在地址

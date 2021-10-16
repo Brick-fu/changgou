@@ -21,7 +21,7 @@
         <property name="LOG_FILE" value="${sys:LOG_FILE:-./logs/application.log}"/>
     </Properties>
 
-    <appenders>
+    <Appenders>
         <!--这个输出控制台的配置-->
         <Console name="Console" target="SYSTEM_OUT" follow="true">
             <!-- 控制台只输出level及以上级别的信息（onMatch），其他的直接拒绝（onMismatch） -->
@@ -50,24 +50,20 @@
                 </Delete>
             </DefaultRolloverStrategy>
         </RollingRandomAccessFile>
-    </appenders>
-    <loggers>
+    </Appenders>
+    <Loggers>
         <!-- 过滤掉spring和mybatis的一些信息，输出到配置的一个或多个AppenderRef中-->
-        <logger name="org.springframework" level="INFO" additivity="false">
-            <AppenderRef ref="TRACE_FILE" />
-        </logger>
-         <logger name="org.mybatis" level="INFO" additivity="false">
-            <AppenderRef ref="log" />
-        </logger>
+        <Logger name="org.springframework" level="DEBUG" additivity="false"/>
+        <Logger name="org.mybatis" level="DEBUG" additivity="false"/>
+        <Logger name="com.changgou.canal.dao" level="DEBUG"/>
+        <Logger name="com.netflix.discovery" level="error"/>
+        <Logger name="org.springframework" level="error"/>
+        <Logger name="org.springframework.cloud" level="error"/>
+        <Logger name="org.springframework.cloud.netflix.eureka" level="error"/>
         <!-- 建立一个默认的root的level是全局级别的 -->
-        <root level="info">
+        <Root level="info">
             <appender-ref ref="Console"/>
             <appender-ref ref="RollingFile"/>
-        </root>
-        <logger name="com.changgou.file.dao" level="DEBUG"/>
-        <logger name="com.netflix.discovery" level="error"/>
-        <logger name="org.springframework" level="error"/>
-        <logger name="org.springframework.cloud" level="error"/>
-        <logger name="org.springframework.cloud.netflix.eureka" level="error"/>
-    </loggers>
+        </Root>
+    </Loggers>
 </Configuration>

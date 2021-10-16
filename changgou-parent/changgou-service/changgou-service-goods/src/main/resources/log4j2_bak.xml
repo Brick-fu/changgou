@@ -6,7 +6,7 @@
     monitorInterval：Log4j能够自动检测修改配置 文件和重新配置本身，设置间隔秒数。
 -->
 <Configuration status="error" monitorInterval="30">
-    <appenders>
+    <Appenders>
         <!--这个输出控制台的配置-->
         <Console name="Console" target="SYSTEM_OUT">
             <!-- 控制台只输出level及以上级别的信息（onMatch），其他的直接拒绝（onMismatch） -->
@@ -26,20 +26,20 @@
             <!-- DefaultRolloverStrategy属性如不设置，则默认为最多同一文件夹下7个文件，这里设置了20 -->
             <DefaultRolloverStrategy max="20"/>
         </RollingRandomAccessFile>
-    </appenders>
-    <loggers>
+    </Appenders>
+    <Loggers>
         <!-- 过滤掉spring和mybatis的一些信息，输出到配置的一个或多个AppenderRef中-->
-        <logger name="org.springframework" level="INFO" additivity="false">
+        <Logger name="org.springframework" level="INFO" additivity="false">
             <AppenderRef ref="log" />
-        </logger>
+        </Logger>
         <!-- <logger name="org.mybatis" level="INFO" additivity="false">
             <AppenderRef ref="log" />
         </logger> -->
         <!-- 建立一个默认的root的level是全局级别的 -->
-        <root level="info">
+        <Root level="info">
             <appender-ref ref="Console"/>
             <appender-ref ref="log"/>
             <appender-ref ref="RollingFile"/>
-        </root>
-    </loggers>
+        </Root>
+    </Loggers>
 </Configuration>

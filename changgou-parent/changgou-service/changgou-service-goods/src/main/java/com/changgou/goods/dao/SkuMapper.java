@@ -60,4 +60,7 @@ public interface SkuMapper {
      */
     @Select("SELECT * from tb_sku")
     List<Sku> findAll();
+
+    @Select("SELECT * from tb_sku WHERE status = #{status}")
+    List<Sku> findByStatus(String status);
 }
