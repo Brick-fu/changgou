@@ -114,6 +114,7 @@ public class SkuServiceImpl implements SkuService {
 
     @Override
     public List<Sku> findByStatus(String status) {
+        logger.info("SkuServiceImpl.findByStatus,status={}",status);
         return skuMapper.findByStatus(status);
     }
 }

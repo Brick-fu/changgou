@@ -25,11 +25,6 @@ feign:
 #ribbon:
   #ReadTimeout: 60000
   #ConnectTimeout: 60000
-management:
-  endpoints:
-    web:
-      exposure:
-        include: info,health
 hystrix:
   command:
     default:
@@ -39,5 +34,26 @@ hystrix:
         isolation:
           thread:
             timeoutInMilliseconds: 60000
+management:
+  health:
+    redis:
+      enabled: true
+  endpoint:
+    health:
+      show-details: always
+  endpoints:
+    web:
+      exposure:
+        include: info,health
+      cors:
+        allow-credentials:
+info:
+  app:
+    name: changgou-search
+    version: v1.0.0
+    description: this is a search microservices
+
 elasticsearch:
   addr: 192.168.3.18:9200
+  connectTimeout: 60000
+  socketTimeout: 60000

@@ -60,6 +60,7 @@
         <Logger name="org.springframework" level="error"/>
         <Logger name="org.springframework.cloud" level="error"/>
         <Logger name="org.springframework.cloud.netflix.eureka" level="error"/>
+        <logger name="org.springframework.data.elasticsearch.client.WIRE" level="trace"/>
         <!-- 建立一个默认的root的level是全局级别的 -->
         <Root level="info">
             <appender-ref ref="Console"/>

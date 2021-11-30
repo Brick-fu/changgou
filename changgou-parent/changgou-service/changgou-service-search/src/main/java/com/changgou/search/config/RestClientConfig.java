@@ -13,12 +13,16 @@ public class RestClientConfig extends AbstractElasticsearchConfiguration {
 
     @Value("${elasticsearch.addr}")
     private String esAddr;
+    @Value("${elasticsearch.connectTimeout}")
+    private long connectTimeout;
+    @Value("${elasticsearch.socketTimeout}")
+    private long socketTimeout;
 
     @Bean
     @Override
     public RestHighLevelClient elasticsearchClient() {
         final ClientConfiguration clientConfiguration = ClientConfiguration.builder()
-                .connectedTo(esAddr)
+                .connectedTo(esAddr).withConnectTimeout(connectTimeout).withSocketTimeout(socketTimeout)
                 .build();
 
         return RestClients.create(clientConfiguration).rest();

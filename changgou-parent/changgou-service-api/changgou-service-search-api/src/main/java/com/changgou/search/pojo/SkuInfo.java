@@ -1,6 +1,8 @@
 package com.changgou.search.pojo;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.elasticsearch.annotations.DateFormat;
 import org.springframework.data.elasticsearch.annotations.Document;
 import org.springframework.data.elasticsearch.annotations.Field;
 import org.springframework.data.elasticsearch.annotations.FieldType;
@@ -8,6 +10,7 @@ import org.springframework.data.elasticsearch.annotations.FieldType;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.Map;
+
 
 @Document(indexName = "skuinfo",type = "docs")
 public class SkuInfo implements Serializable {
@@ -36,9 +39,13 @@ public class SkuInfo implements Serializable {
     private String status;
 
     //创建时间
+    @Field(type = FieldType.Date,format = DateFormat.custom,pattern ="yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
     private Date createTime;
 
     //更新时间
+    @Field(type = FieldType.Date,format = DateFormat.custom,pattern ="yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
     private Date updateTime;
 
     //是否默认
@@ -176,7 +183,7 @@ public class SkuInfo implements Serializable {
         this.spec = spec;
     }
 
-    public String getSpecMap() {
+    public Map<String, Object> getSpecMap() {
         return specMap;
     }
 
