@@ -1,0 +1,30 @@
+server:
+  port: 18088
+spring:
+  thymeleaf:
+    cache: false
+  application:
+    name: search-web
+eureka:
+  client:
+    service-url:
+      defaultZone: http://192.168.3.18:7001/eureka
+  instance:
+    prefer-ip-address: true
+feign:
+  hystrix:
+    enabled: true
+  client:
+    config:
+      default:
+        connectTimeout: 60000
+        readTimeout: 60000
+hystrix:
+  command:
+    default:
+      execution:
+        timeout:
+          enabled: true
+        isolation:
+          thread:
+            timeoutInMilliseconds: 60000

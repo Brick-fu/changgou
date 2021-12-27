@@ -1,5 +1,10 @@
 server:
   port: 18081
+info:
+  app:
+    name: changgou-goods
+    version: v1.0.0
+    description: this is a goods microservices
 spring:
   application:
     name: changgou-goods
