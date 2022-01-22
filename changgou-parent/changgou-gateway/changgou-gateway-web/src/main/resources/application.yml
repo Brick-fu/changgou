@@ -7,26 +7,32 @@ spring:
         cors-configurations:
           '[/**]': # 匹配所有请求
             allowedOrigins: "*" #跨域处理 允许所有的域
-            allowedMethods: # 支持的方法
+            allowedMethods: # 支持的方predicates法
               - GET
               - POST
               - PUT
               - DELETE
       routes:
         - id: changgou_goods_route
-          uri: http://localhost:18081
+          uri: lb://changgou-goods
           predicates:
-          #- Host=www.brick.com**
-          - Path=/**
+#          - Host=www.brick.com**
+            - Path=/api/album/**,/api/brand/**,/api/cache/**,/api/categoryBrand/**,/api/category/**,/api/para/**,/api/pref/**,/api/sku/**,/api/spec/**,/api/spu/**,/api/stockBack/**,/api/template/**
           filters:
-          #- PrefixPath=/brand
-          - StripPrefix=1
+#          - PrefixPath=/brand
+            - StripPrefix=1
+        - id: changgou_user_route
+          uri: lb://changgou-user
+          predicates:
+            - Path=/api/user/**,/api/address/**,/api/areas/**,/api/cities/**,/api/provinces/**
+          filters:
+            - StripPrefix=1
 server:
   port: 8001
 eureka:
   client:
     service-url:
-      defaultZone: http://192.168.3.18:7001/eureka
+      defaultZone: http://www.brick.com:7001/eureka
   instance:
     prefer-ip-address: true
 management:

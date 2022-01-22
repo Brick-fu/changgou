@@ -6,7 +6,7 @@ spring:
   datasource:
     type: com.alibaba.druid.pool.DruidDataSource
     driver‐class‐name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://192.168.3.18:3306/changgou_goods?serverTimezone=Asia/Shanghai&useSSL=true
+    url: jdbc:mysql://www.brick.com:3306/changgou_goods?serverTimezone=Asia/Shanghai&useSSL=true
     username: root
     password: 123456
     druid:
@@ -19,7 +19,7 @@ spring:
 eureka:
   client:
     service‐url:
-      defaultZone: http://192.168.3.18:7001/eureka
+      defaultZone: http://www.brick.com:7001/eureka
   instance:
     prefer‐ip‐address: true
 feign:
@@ -38,3 +38,8 @@ mybatis:
 pagehelper:
   helper-dialect: mysql
   reasonable: true
+info:
+  app:
+    name: changgou-content
+    version: v1.0.0
+    description: this is a content microservices

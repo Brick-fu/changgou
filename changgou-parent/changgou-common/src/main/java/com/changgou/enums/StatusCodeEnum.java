@@ -4,7 +4,6 @@ public enum StatusCodeEnum {
     /*系统服务码*/
     SUCCESS("000000","成功！"),
     ERROR("000500","服务器内部错误！"),
-    LOGINERROR("100002","用户名或密码错误"),
     ACCESSERROR("100003","权限不足"),
     REMOTEERROR("100004","远程调用失败"),
     REPERROR("100005","重复操作"),
@@ -17,7 +16,9 @@ public enum StatusCodeEnum {
     GOODS_MUST_PUT_ON_SHELVES("300003","必须先下架再删除！"),
     GOODS_NOT_DELETE("300004","此商品未删除！"),
     GOODS_CANNOT_DELETE("300005","此商品不能删除！"),
-
+    /*用户认证中心服务码*/
+    APPLY_TOKEN_FAIL("400001","申请令牌失败！"),
+    LOGINERROR("400002","用户名或密码错误"),
     ;
 
 

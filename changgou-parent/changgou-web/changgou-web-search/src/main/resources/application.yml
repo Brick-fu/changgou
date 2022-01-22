@@ -8,7 +8,7 @@ spring:
 eureka:
   client:
     service-url:
-      defaultZone: http://192.168.3.18:7001/eureka
+      defaultZone: http://www.brick.com:7001/eureka
   instance:
     prefer-ip-address: true
 feign:
@@ -28,3 +28,13 @@ hystrix:
         isolation:
           thread:
             timeoutInMilliseconds: 60000
+management:
+  endpoints:
+    web:
+      exposure:
+        include: info,health
+info:
+  app:
+    name: search-web
+    version: v1.0.0
+    description: this is a search-web microservices

@@ -10,7 +10,7 @@ spring:
 eureka:
   client:
     service-url:
-      defaultZone: http://127.0.0.1:7001/eureka
+      defaultZone: http://www.brick.com:7001/eureka
   instance:
     prefer-ip-address: true
 feign:
@@ -54,6 +54,6 @@ info:
     description: this is a search microservices
 
 elasticsearch:
-  addr: 192.168.3.18:9200
+  addr: www.brick.com:9200
   connectTimeout: 60000
   socketTimeout: 60000

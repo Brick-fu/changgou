@@ -17,12 +17,12 @@ spring:
     timeout: 6000ms
     password: 123456
     cluster:
-      nodes: 192.168.3.18:9001,192.168.3.18:9003,192.168.3.18:9005,192.168.3.18:9002,192.168.3.18:9004,192.168.3.18:9006
+      nodes: www.brick.com:9001,www.brick.com:9003,www.brick.com:9005,www.brick.com:9002,www.brick.com:9004,www.brick.com:9006
       max-redirects: 3
 eureka:
   client:
     service-url:
-      defaultZone: http://192.168.3.18:7001/eureka
+      defaultZone: http://www.brick.com:7001/eureka
   instance:
     prefer-ip-address: true
 feign:
@@ -49,5 +49,10 @@ canal:
   username: canal
   # 密码
   password: canal
-  server: 192.168.3.18:11111
+  server: www.brick.com:11111
   destination: example
+info:
+  app:
+    name: changgou-canal
+    version: v1.0.0
+    description: this is a canal microservices

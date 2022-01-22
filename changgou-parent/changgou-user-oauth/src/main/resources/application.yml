@@ -1,0 +1,49 @@
+server:
+  port: 9001
+spring:
+  application:
+    name: user-auth
+  redis:
+    host: www.brick.com
+    port: 6379
+    password:
+    jedis:
+      pool:
+        max-active: 8
+        max-idle: 8
+        min-idle: 0
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://www.brick.com:3306/changgou_oauth?useUnicode=true&characterEncoding=utf-8&useSSL=false&allowMultiQueries=true&serverTimezone=UTC
+    username: root
+    password: 123456
+  main:
+    allow-bean-definition-overriding: true
+eureka:
+  instance:
+    prefer-ip-address: true
+  client:
+    service-url:
+      defaultZone: http://www.brick.com:7001/eureka
+management:
+  endpoints:
+    web:
+      exposure:
+        include: info,health
+info:
+  app:
+    name: user-auth
+    version: v1.0.0
+    description: this is a user-auth microservices
+auth:
+  ttl: 3600  #token存储到redis的过期时间
+  clientId: brick
+  clientSecret: brickf
+  cookieDomain: www.brick.com
+  cookieMaxAge: -1
+encrypt:
+  key-store:
+    location: classpath:/brick.jks
+    secret: brickf
+    alias: brick
+    password: brickf

@@ -11,7 +11,7 @@ server:
 eureka:
   client:
     service-url:
-      defaultZone: http://192.168.3.18:7001/eureka
+      defaultZone: http://www.brick.com:7001/eureka
   instance:
     prefer-ip-address: true
 feign:
@@ -24,7 +24,12 @@ management:
         include: info,health
 # MinIO对象存储相关配置.
 minio:
-  endpoint: http://192.168.3.18:9090 #MinIO服务所在地址
+  endpoint: http://www.brick.com:9090 #MinIO服务所在地址
   bucketName: mall #存储桶名称
   accessKey: minioadmin #访问的key
   secretKey: minioadmin #访问的秘钥
+info:
+  app:
+    name: changgou-file
+    version: v1.0.0
+    description: this is a file microservices

@@ -46,7 +46,7 @@
             <DefaultRolloverStrategy max="300">
                 <Delete basePath="${LOG_PATH}" maxDepth="1">
                     <IfFileName glob="application-*.log"/>
-                    <IfLastModified age="7d"/>
+                    <IfLastModified age="7的日志文件乱码d"/>
                 </Delete>
             </DefaultRolloverStrategy>
         </RollingRandomAccessFile>
