@@ -2,7 +2,7 @@ server:
   port: 9001
 spring:
   application:
-    name: user-auth
+    name: user-oauth
   redis:
     host: www.brick.com
     port: 6379
@@ -19,6 +19,8 @@ spring:
     password: 123456
   main:
     allow-bean-definition-overriding: true
+  autoconfigure:
+    exclude: org.springframework.boot.autoconfigure.data.redis.RedisAutoConfiguration
 eureka:
   instance:
     prefer-ip-address: true
@@ -30,6 +32,9 @@ management:
     web:
       exposure:
         include: info,health
+  endpoint:
+    health:
+      show-details: always
 info:
   app:
     name: user-auth

@@ -56,7 +56,7 @@ public class AuthServiceImpl implements AuthService {
     private AuthToken applyToken(String username, String password, String clientId, String clientSecret){
         logger.info("AuthServiceImpl.applyToken,{}",username);
         //获取用户认证中心url
-        ServiceInstance serviceInstance = loadBalancerClient.choose("user-auth");
+        ServiceInstance serviceInstance = loadBalancerClient.choose("user-oauth");
         if (serviceInstance == null) {
             logger.error("AuthServiceImpl.applyToken：通过user-auth找不到服务");
             throw new RuntimeException("找不到对应的服务");

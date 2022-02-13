@@ -18,7 +18,7 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 import javax.servlet.http.HttpServletResponse;
 
 @RestController
-@RequestMapping("user")
+@RequestMapping("/oauth")
 public class AuthController {
 
     @Autowired

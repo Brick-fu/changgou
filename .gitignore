@@ -12,3 +12,6 @@ target/
 
 #Project#
 *.log
+
+#VSCODE配置#
+.vscode/

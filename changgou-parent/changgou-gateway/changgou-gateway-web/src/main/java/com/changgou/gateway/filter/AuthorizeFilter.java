@@ -38,7 +38,7 @@ public class AuthorizeFilter implements GlobalFilter, Ordered {
         String path = request.getURI().getPath();
         logger.info("AuthorizeFilter.filter,path={}",path);
         //判断是否是开放的微服务，一般做权限控制
-        if(path.startsWith("/api/user/login") || path.startsWith("/api/brand/")){
+        if(path.startsWith("/api/oauth/login") || path.startsWith("/api/brand/")){
             Mono<Void> mono = chain.filter(exchange);
             return mono;
         }

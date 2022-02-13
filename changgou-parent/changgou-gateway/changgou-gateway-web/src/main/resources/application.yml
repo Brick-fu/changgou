@@ -13,6 +13,7 @@ spring:
               - PUT
               - DELETE
       routes:
+#        商品中心微服务
         - id: changgou_goods_route
           uri: lb://changgou-goods
           predicates:
@@ -21,10 +22,18 @@ spring:
           filters:
 #          - PrefixPath=/brand
             - StripPrefix=1
+#        用户中心微服务
         - id: changgou_user_route
           uri: lb://changgou-user
           predicates:
             - Path=/api/user/**,/api/address/**,/api/areas/**,/api/cities/**,/api/provinces/**
+          filters:
+            - StripPrefix=1
+#        用户认证微服务
+        - id: user_oauth_route
+          uri: lb://user-oauth
+          predicates:
+            - Path=/api/oauth/**
           filters:
             - StripPrefix=1
 server:

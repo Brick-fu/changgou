@@ -13,6 +13,8 @@
         <module>changgou-web</module>
         <module>changgou-common-db</module>
         <module>changgou-user-oauth</module>
+        <module>changgou-monitor</module>
+        <module>changgou-portal</module>
     </modules>
     <groupId>com.changgou</groupId>
     <artifactId>changgou-parent</artifactId>

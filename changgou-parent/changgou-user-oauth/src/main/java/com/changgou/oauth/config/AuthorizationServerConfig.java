@@ -51,12 +51,12 @@ class AuthorizationServerConfig extends AuthorizationServerConfigurerAdapter {
      * @param clients
      * @throws Exception
      */
-    /*@Override
+    @Override
     public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
         clients.jdbc(dataSource).clients(clientDetails());
-    }*/
+    }
 
-    @Override
+    /*@Override
     public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
         clients.inMemory()
                 .withClient("brick")          //客户端id
@@ -70,7 +70,7 @@ class AuthorizationServerConfig extends AuthorizationServerConfigurerAdapter {
                         "refresh_token",                //刷新令牌
                         "password")                     //密码方式认证
                 .scopes("app");                         //客户端范围，名称自定义，必填
-    }
+    }*/
 
     /***
      * 授权服务器端点配置

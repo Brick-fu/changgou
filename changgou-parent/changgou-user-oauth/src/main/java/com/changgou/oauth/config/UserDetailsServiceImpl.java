@@ -41,9 +41,9 @@ public class UserDetailsServiceImpl implements UserDetailsService {
                 //秘钥
                 String clientSecret = clientDetails.getClientSecret();
                 //静态方式
-                return new User(username,new BCryptPasswordEncoder().encode(clientSecret), AuthorityUtils.commaSeparatedStringToAuthorityList(""));
+                // return new User(username,new BCryptPasswordEncoder().encode(clientSecret), AuthorityUtils.commaSeparatedStringToAuthorityList(""));
                 //数据库查找方式
-                // return new User(username,clientSecret, AuthorityUtils.commaSeparatedStringToAuthorityList(""));
+                return new User(username,clientSecret, AuthorityUtils.commaSeparatedStringToAuthorityList(""));
             }
         }
 

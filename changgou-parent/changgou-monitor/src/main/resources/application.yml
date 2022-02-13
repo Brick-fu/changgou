@@ -1,0 +1,11 @@
+spring:
+  application:
+    name: admin-server
+server:
+  port: 9301
+eureka:
+  client:
+    service-url:
+      defaultZone: http://www.brick.com:7001/eureka
+  instance:
+    prefer-ip-address: true

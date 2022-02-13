@@ -9,7 +9,7 @@ import org.springframework.web.client.RestTemplate;
 
 @SpringBootApplication
 @EnableDiscoveryClient
-@MapperScan(basePackages = "com.changgou.auth.dao")
+@MapperScan(basePackages = "com.changgou.oauth.dao")
 public class OAuthApplication {
 
     public static void main(String[] args) {

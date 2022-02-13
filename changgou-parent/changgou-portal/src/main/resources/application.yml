@@ -1,0 +1,45 @@
+server:
+  port: 8080
+spring:
+  thymeleaf:
+    cache: false
+  application:
+    name: changgou-portal
+  autoconfigure:
+    exclude: org.springframework.boot.autoconfigure.amqp.RabbitAutoConfiguration
+eureka:
+  client:
+    service-url:
+      defaultZone: http://www.brick.com:7001/eureka
+  instance:
+    prefer-ip-address: true
+feign:
+  hystrix:
+    enabled: true
+  client:
+    config:
+      default:
+        connectTimeout: 60000
+        readTimeout: 60000
+hystrix:
+  command:
+    default:
+      execution:
+        timeout:
+          enabled: true
+        isolation:
+          thread:
+            timeoutInMilliseconds: 60000
+management:
+  endpoints:
+    web:
+      exposure:
+        include: info,health
+  endpoint:
+    health:
+      show-details: always
+info:
+  app:
+    name: changgou-portal
+    version: v1.0.0
+    description: this is a changgou-portal microservices
