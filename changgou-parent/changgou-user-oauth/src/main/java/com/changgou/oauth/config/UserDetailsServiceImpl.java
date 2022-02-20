@@ -1,6 +1,9 @@
 package com.changgou.oauth.config;
 
+import com.changgou.entity.Result;
 import com.changgou.oauth.util.UserJwt;
+import com.changgou.user.feign.UserFeign;
+import com.changgou.user.pojo.TbUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.authority.AuthorityUtils;
@@ -23,6 +26,8 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
     @Autowired
     ClientDetailsService clientDetailsService;
+    @Autowired
+    private UserFeign userFeign;
 
     /****
      * 自定义授权认证
@@ -50,12 +55,23 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         if (StringUtils.isEmpty(username)) {
             return null;
         }
-
         //根据用户名查询用户信息
-        String pwd = new BCryptPasswordEncoder().encode("itheima");
-        //创建User对象
-        String permissions = "goods_list,seckill_list";
-        UserJwt userDetails = new UserJwt(username,pwd,AuthorityUtils.commaSeparatedStringToAuthorityList(permissions));
+        Result<TbUser> result = userFeign.queryById(username);
+
+        if(result == null || result.getData() == null){
+            return null;
+        }
+
+        TbUser user = result.getData();
+        String pwd = user.getPassword();
+        // TbUser user = new TbUser();
+        // String pwd = new BCryptPasswordEncoder().encode("szitheima");
+
+                //创建User对象
+        String permissions = "admin,oauth";
+        UserJwt userDetails = new UserJwt(username,pwd,AuthorityUtils.commaSeparatedStringToAuthorityList(permissions),
+                user.getNickName(),user.getPhone(),user.getEmail(),user.getCreated(),user.getSex(),
+                user.getUserLevel(),user.getPoints(),user.getExperienceValue(),user.getBirthday(),user.getLastLoginTime());
         return userDetails;
     }
 }

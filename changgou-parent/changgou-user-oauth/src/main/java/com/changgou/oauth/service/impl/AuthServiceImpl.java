@@ -18,6 +18,7 @@ import org.springframework.util.CollectionUtils;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.DefaultResponseErrorHandler;
+import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestTemplate;
 
 import java.io.IOException;
@@ -46,11 +47,7 @@ public class AuthServiceImpl implements AuthService {
     @Override
     public AuthToken login(String username, String password, String clientId, String clientSecret) {
         logger.info("AuthServiceImpl.login,{}",username);
-        AuthToken authToken = applyToken(username, password, clientId, clientSecret);
-        if(Objects.isNull(authToken)){
-            throw new BizException(StatusCodeEnum.APPLY_TOKEN_FAIL);
-        }
-        return authToken;
+        return applyToken(username, password, clientId, clientSecret);
     }
 
     private AuthToken applyToken(String username, String password, String clientId, String clientSecret){
@@ -59,7 +56,7 @@ public class AuthServiceImpl implements AuthService {
         ServiceInstance serviceInstance = loadBalancerClient.choose("user-oauth");
         if (serviceInstance == null) {
             logger.error("AuthServiceImpl.applyToken：通过user-auth找不到服务");
-            throw new RuntimeException("找不到对应的服务");
+            throw new BizException(StatusCodeEnum.SERVICE_LOSS);
         }
         //获取令牌的url
         String path = serviceInstance.getUri().toString() + "/oauth/token";
@@ -81,15 +78,26 @@ public class AuthServiceImpl implements AuthService {
                 }
             }
         });
-        ResponseEntity<Map> exchange = restTemplate.exchange(path, HttpMethod.POST, new HttpEntity<>(bodyMap, headers), Map.class);
-        Map body = exchange.getBody();
-        AuthToken authToken = null;
-        if(!CollectionUtils.isEmpty(body)){
-            authToken = new AuthToken();
-            authToken.setAccessToken((String)body.get("access_token"));
-            authToken.setRefreshToken((String)body.get("refresh_token"));
-            authToken.setJti((String)body.get("jti"));
+        Map body = null;
+
+        try {
+            //http请求spring security的申请令牌接口
+            ResponseEntity<Map> exchange = restTemplate.exchange(path, HttpMethod.POST, new HttpEntity<>(bodyMap, headers), Map.class);
+            body = exchange.getBody();
+        }catch (RestClientException e){
+            logger.error("申请令牌失败",e);
+            throw new BizException(StatusCodeEnum.LOGINERROR);
         }
+
+        if(body == null || body.get("access_token") == null || body.get("refresh_token") == null || body.get("jti") == null) {
+            //jti是jwt令牌的唯一标识作为用户身份令牌
+            throw new BizException(StatusCodeEnum.APPLY_TOKEN_FAIL);
+        }
+
+        AuthToken authToken = new AuthToken();
+        authToken.setAccessToken((String)body.get("access_token"));
+        authToken.setRefreshToken((String)body.get("refresh_token"));
+        authToken.setJti((String)body.get("jti"));
         return authToken;
     }
 

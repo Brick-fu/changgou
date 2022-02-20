@@ -36,6 +36,13 @@ spring:
             - Path=/api/oauth/**
           filters:
             - StripPrefix=1
+        #订单微服务
+        - id: changgou_order_route
+          uri: lb://changgou-order
+          predicates:
+            - Path=/api/cart/**,/api/categoryReport/**,/api/orderConfig/**,/api/order/**,/api/orderItem/**,/api/orderLog/**,/api/preferential/**,/api/returnCause/**,/api/returnOrder/**,/api/returnOrderItem/**
+          filters:
+            - StripPrefix=1
 server:
   port: 8001
 eureka:

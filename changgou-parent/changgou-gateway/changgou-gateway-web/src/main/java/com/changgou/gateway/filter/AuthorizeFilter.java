@@ -63,9 +63,9 @@ public class AuthorizeFilter implements GlobalFilter, Ordered {
         }
         logger.info("AuthorizeFilter.filter,token={}",token);
         try {
-            Claims claims = JwtUtil.parseJWT(token);
+            // Claims claims = JwtUtil.parseJWT(token);
             //保存到请求头中，供其他微服务取
-            request.mutate().header(AUTHORIZE_TOKEN,claims.toString());
+            request.mutate().header(AUTHORIZE_TOKEN,"Bearer " + token);
         } catch (Exception e) {
             logger.error("token解析失败！",e);
             response.setStatusCode(HttpStatus.UNAUTHORIZED);

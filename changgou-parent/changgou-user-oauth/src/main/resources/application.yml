@@ -35,6 +35,18 @@ management:
   endpoint:
     health:
       show-details: always
+feign:
+  hystrix:
+    enabled: true
+#hystrix 配置
+hystrix:
+  command:
+    default:
+      execution:
+        isolation:
+          thread:
+            timeoutInMilliseconds: 10000
+          strategy: SEMAPHORE
 info:
   app:
     name: user-auth

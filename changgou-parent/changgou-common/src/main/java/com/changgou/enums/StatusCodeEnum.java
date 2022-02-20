@@ -8,6 +8,7 @@ public enum StatusCodeEnum {
     REMOTEERROR("100004","远程调用失败"),
     REPERROR("100005","重复操作"),
     NOTFOUNDERROR("100006","没有对应的抢购数据"),
+    SERVICE_LOSS("100007","服务丢失啦！"),
     /*文件上传服务码*/
     MINIOCLINT_CREATE_FAIL("200001","minioClient创建失败"),
     /*商品中心服务码*/
@@ -19,6 +20,9 @@ public enum StatusCodeEnum {
     /*用户认证中心服务码*/
     APPLY_TOKEN_FAIL("400001","申请令牌失败！"),
     LOGINERROR("400002","用户名或密码错误"),
+
+    /*用户中心*/
+    USER_IS_NULL("600001","用户为空！")
     ;
 
 

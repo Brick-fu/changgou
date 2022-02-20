@@ -30,10 +30,10 @@ public class SpuController {
     @ApiOperation(value = "查询spu",notes = "多条件分页查询数据")
     @PostMapping(value = "/search/{page}/{size}" )
     public Result<PageInfo<Spu>> findPage(@RequestBody(required = false) Spu spu, @PathVariable  int page, @PathVariable  int size){
-    //执行搜索
-    PageInfo<Spu> pageInfo = spuService.findPage(spu, page, size);
-    return new Result<>(true,StatusCodeEnum.SUCCESS.getCode(),"查询成功",pageInfo);
-}
+        //执行搜索
+        PageInfo<Spu> pageInfo = spuService.findPage(spu, page, size);
+        return new Result<>(true,StatusCodeEnum.SUCCESS.getCode(),"查询成功",pageInfo);
+    }
     
     /***
      * 添加Goods
@@ -144,6 +144,17 @@ public class SpuController {
     public Result<Void> restore(@PathVariable Long id){
         spuService.restore(id);
         return new Result<>(true,StatusCodeEnum.SUCCESS.getCode(),"数据恢复成功！");
+    }
+
+    /***
+     * 根据SpuID查询Spu信息
+     * @param id
+     * @return
+     */
+    @GetMapping("/{id}")
+    public Result<Spu> findById(@PathVariable(name = "id") Long id){
+        Spu spu = spuService.findById(id);
+        return new Result<>(true,StatusCodeEnum.SUCCESS.getCode(),"查询成功",spu);
     }
 
 }

@@ -43,6 +43,16 @@ public class SkuController {
     public Result<List<Sku>> findByStatus(@PathVariable String status){
         logger.info("SkuController.findByStatus,status={}",status);
         List<Sku> list = skuService.findByStatus(status);
-        return new Result<List<Sku>>(true,StatusCodeEnum.SUCCESS.getCode(),"查询成功",list);
+        return new Result<>(true,StatusCodeEnum.SUCCESS.getCode(),"查询成功",list);
+    }
+
+    /***
+     * 根据ID查询SKU信息
+     * @param id : sku的ID
+     */
+    @GetMapping(value = "/{id}")
+    public Result<Sku> findById(@PathVariable(value = "id") Long id){
+        Sku sku = skuService.findById(id);
+        return new Result<>(true,StatusCodeEnum.SUCCESS.getCode(),"查询成功",sku);
     }
 }

@@ -8,6 +8,7 @@ import com.changgou.oauth.util.AuthToken;
 import com.changgou.oauth.util.CookieUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.oauth2.common.OAuth2AccessToken;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,6 +17,7 @@ import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
 import javax.servlet.http.HttpServletResponse;
+import java.util.Objects;
 
 @RestController
 @RequestMapping("/oauth")
@@ -23,6 +25,7 @@ public class AuthController {
 
     @Autowired
     private AuthService authService;
+
     @Value("${auth.clientId}")
     private String clientId;
     @Value("${auth.clientSecret}")
@@ -33,7 +36,7 @@ public class AuthController {
     private Integer cookieMaxAge;
 
     @PostMapping("/login")
-    public Result<AuthToken> login(String username, String password){
+    public Result<AuthToken> login(String username, String password,HttpServletResponse response){
         if(StringUtils.isEmpty(username)){
             return new Result<>(false, StatusCodeEnum.LOGINERROR.getCode(), "登录名称不能为空!");
         }
@@ -41,7 +44,13 @@ public class AuthController {
             return new Result<>(false, StatusCodeEnum.LOGINERROR.getCode(), "密码不能为空!");
         }
         AuthToken authToken = authService.login(username, password, clientId, clientSecret);
-        saveCookie(authToken.getAccessToken());
+        if(Objects.isNull(authToken)){
+            return new Result<>(false, StatusCodeEnum.APPLY_TOKEN_FAIL.getCode(), "登录失败!",null);
+        }
+        //保存到coolie中
+        // saveCookie(authToken.getAccessToken());
+        //保存到头文件中
+        response.addHeader("Authorization",String.format("%s %s", OAuth2AccessToken.BEARER_TYPE,authToken.getAccessToken()));
         return new Result<>(true, StatusCodeEnum.SUCCESS.getCode(), "登录成功!",authToken);
     }
 

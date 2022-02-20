@@ -20,7 +20,7 @@ public class CustomUserAuthenticationConverter extends DefaultUserAuthentication
 
     @Override
     public Map<String, ?> convertUserAuthentication(Authentication authentication) {
-        LinkedHashMap response = new LinkedHashMap();
+        LinkedHashMap<String,Object> response = new LinkedHashMap<>();
         String name = authentication.getName();
         response.put("username", name);
 
@@ -33,8 +33,7 @@ public class CustomUserAuthenticationConverter extends DefaultUserAuthentication
             UserDetails userDetails = userDetailsService.loadUserByUsername(name);
             userJwt = (UserJwt) userDetails;
         }
-        response.put("name", userJwt.getName());
-        response.put("id", userJwt.getId());
+        userJwt.toMap(response);
         if (authentication.getAuthorities() != null && !authentication.getAuthorities().isEmpty()) {
             response.put("authorities", AuthorityUtils.authorityListToSet(authentication.getAuthorities()));
         }

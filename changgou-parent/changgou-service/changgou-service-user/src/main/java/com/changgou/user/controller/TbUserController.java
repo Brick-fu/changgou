@@ -20,6 +20,7 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 import java.util.UUID;
 
 /**
@@ -28,7 +29,7 @@ import java.util.UUID;
  * @since 2021-12-28 23:44:05
  */
 @RestController
-@RequestMapping("user")
+@RequestMapping("/user")
 public class TbUserController {
 
     @Autowired
@@ -71,9 +72,14 @@ public class TbUserController {
      * @param id 主键
      * @return 单条数据
      */
-    @GetMapping("{id}")
-    public ResponseEntity<TbUser> queryById(@PathVariable("id") String id) {
-        return ResponseEntity.ok(this.tbUserService.queryById(id));
+    @GetMapping("/{id}")
+    public Result<TbUser> queryById(@PathVariable("id") String id) {
+        logger.info("TbUserController.queryById,{}",id);
+        TbUser tbUser = this.tbUserService.queryById(id);
+        if(Objects.isNull(tbUser)){
+            return new Result<>(false,StatusCodeEnum.USER_IS_NULL.getCode(), "用户获取失败！",null);
+        }
+        return new Result<>(true,StatusCodeEnum.SUCCESS.getCode(), "获取成功！",tbUser);
     }
 
     /**

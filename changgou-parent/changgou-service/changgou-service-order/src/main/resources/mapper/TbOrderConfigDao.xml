@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.changgou.order.dao.TbOrderConfigDao">
+
+    <resultMap type="com.changgou.order.entity.TbOrderConfig" id="TbOrderConfigMap">
+        <result property="id" column="id" jdbcType="INTEGER"/>
+        <result property="orderTimeout" column="order_timeout" jdbcType="INTEGER"/>
+        <result property="seckillTimeout" column="seckill_timeout" jdbcType="INTEGER"/>
+        <result property="takeTimeout" column="take_timeout" jdbcType="INTEGER"/>
+        <result property="serviceTimeout" column="service_timeout" jdbcType="INTEGER"/>
+        <result property="commentTimeout" column="comment_timeout" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <!--查询单个-->
+    <select id="queryById" resultMap="TbOrderConfigMap">
+        select
+          id, order_timeout, seckill_timeout, take_timeout, service_timeout, comment_timeout
+        from tb_order_config
+        where id = #{id}
+    </select>
+
+    <!--查询指定行数据-->
+    <select id="queryAllByLimit" resultMap="TbOrderConfigMap">
+        select
+          id, order_timeout, seckill_timeout, take_timeout, service_timeout, comment_timeout
+        from tb_order_config
+        <where>
+            <if test="id != null">
+                and id = #{id}
+            </if>
+            <if test="orderTimeout != null">
+                and order_timeout = #{orderTimeout}
+            </if>
+            <if test="seckillTimeout != null">
+                and seckill_timeout = #{seckillTimeout}
+            </if>
+            <if test="takeTimeout != null">
+                and take_timeout = #{takeTimeout}
+            </if>
+            <if test="serviceTimeout != null">
+                and service_timeout = #{serviceTimeout}
+            </if>
+            <if test="commentTimeout != null">
+                and comment_timeout = #{commentTimeout}
+            </if>
+        </where>
+        limit #{pageable.offset}, #{pageable.pageSize}
+    </select>
+
+    <!--统计总行数-->
+    <select id="count" resultType="java.lang.Long">
+        select count(1)
+        from tb_order_config
+        <where>
+            <if test="id != null">
+                and id = #{id}
+            </if>
+            <if test="orderTimeout != null">
+                and order_timeout = #{orderTimeout}
+            </if>
+            <if test="seckillTimeout != null">
+                and seckill_timeout = #{seckillTimeout}
+            </if>
+            <if test="takeTimeout != null">
+                and take_timeout = #{takeTimeout}
+            </if>
+            <if test="serviceTimeout != null">
+                and service_timeout = #{serviceTimeout}
+            </if>
+            <if test="commentTimeout != null">
+                and comment_timeout = #{commentTimeout}
+            </if>
+        </where>
+    </select>
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="id" useGeneratedKeys="true">
+        insert into tb_order_config(order_timeout, seckill_timeout, take_timeout, service_timeout, comment_timeout)
+        values (#{orderTimeout}, #{seckillTimeout}, #{takeTimeout}, #{serviceTimeout}, #{commentTimeout})
+    </insert>
+
+    <insert id="insertBatch" keyProperty="id" useGeneratedKeys="true">
+        insert into tb_order_config(order_timeout, seckill_timeout, take_timeout, service_timeout, comment_timeout)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+        (#{entity.orderTimeout}, #{entity.seckillTimeout}, #{entity.takeTimeout}, #{entity.serviceTimeout}, #{entity.commentTimeout})
+        </foreach>
+    </insert>
+
+    <insert id="insertOrUpdateBatch" keyProperty="id" useGeneratedKeys="true">
+        insert into tb_order_config(order_timeout, seckill_timeout, take_timeout, service_timeout, comment_timeout)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+            (#{entity.orderTimeout}, #{entity.seckillTimeout}, #{entity.takeTimeout}, #{entity.serviceTimeout}, #{entity.commentTimeout})
+        </foreach>
+        on duplicate key update
+        order_timeout = values(order_timeout),
+        seckill_timeout = values(seckill_timeout),
+        take_timeout = values(take_timeout),
+        service_timeout = values(service_timeout),
+        comment_timeout = values(comment_timeout)
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update tb_order_config
+        <set>
+            <if test="orderTimeout != null">
+                order_timeout = #{orderTimeout},
+            </if>
+            <if test="seckillTimeout != null">
+                seckill_timeout = #{seckillTimeout},
+            </if>
+            <if test="takeTimeout != null">
+                take_timeout = #{takeTimeout},
+            </if>
+            <if test="serviceTimeout != null">
+                service_timeout = #{serviceTimeout},
+            </if>
+            <if test="commentTimeout != null">
+                comment_timeout = #{commentTimeout},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete from tb_order_config where id = #{id}
+    </delete>
+
+</mapper>
+

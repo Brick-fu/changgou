@@ -1,5 +1,7 @@
 package com.changgou.user.pojo;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import java.util.Date;
 import java.io.Serializable;
 
@@ -30,10 +32,12 @@ public class TbUser implements Serializable {
     /**
      * 创建时间
      */
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
     private Date created;
     /**
      * 修改时间
      */
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
     private Date updated;
     /**
      * 会员来源：1:PC，2：H5，3：Android，4：IOS
@@ -86,10 +90,12 @@ public class TbUser implements Serializable {
     /**
      * 出生年月日
      */
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
     private Date birthday;
     /**
      * 最后登录时间
      */
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
     private Date lastLoginTime;
 
 

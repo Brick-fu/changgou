@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.changgou.order.dao.TbOrderLogDao">
+
+    <resultMap type="com.changgou.order.entity.TbOrderLog" id="TbOrderLogMap">
+        <result property="id" column="id" jdbcType="VARCHAR"/>
+        <result property="operater" column="operater" jdbcType="VARCHAR"/>
+        <result property="operateTime" column="operate_time" jdbcType="TIMESTAMP"/>
+        <result property="orderId" column="order_id" jdbcType="VARCHAR"/>
+        <result property="orderStatus" column="order_status" jdbcType="VARCHAR"/>
+        <result property="payStatus" column="pay_status" jdbcType="VARCHAR"/>
+        <result property="consignStatus" column="consign_status" jdbcType="VARCHAR"/>
+        <result property="remarks" column="remarks" jdbcType="VARCHAR"/>
+        <result property="money" column="money" jdbcType="INTEGER"/>
+        <result property="username" column="username" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <!--查询单个-->
+    <select id="queryById" resultMap="TbOrderLogMap">
+        select
+          id, operater, operate_time, order_id, order_status, pay_status, consign_status, remarks, money, username
+        from tb_order_log
+        where id = #{id}
+    </select>
+
+    <!--查询指定行数据-->
+    <select id="queryAllByLimit" resultMap="TbOrderLogMap">
+        select
+          id, operater, operate_time, order_id, order_status, pay_status, consign_status, remarks, money, username
+        from tb_order_log
+        <where>
+            <if test="id != null and id != ''">
+                and id = #{id}
+            </if>
+            <if test="operater != null and operater != ''">
+                and operater = #{operater}
+            </if>
+            <if test="operateTime != null">
+                and operate_time = #{operateTime}
+            </if>
+            <if test="orderId != null and orderId != ''">
+                and order_id = #{orderId}
+            </if>
+            <if test="orderStatus != null and orderStatus != ''">
+                and order_status = #{orderStatus}
+            </if>
+            <if test="payStatus != null and payStatus != ''">
+                and pay_status = #{payStatus}
+            </if>
+            <if test="consignStatus != null and consignStatus != ''">
+                and consign_status = #{consignStatus}
+            </if>
+            <if test="remarks != null and remarks != ''">
+                and remarks = #{remarks}
+            </if>
+            <if test="money != null">
+                and money = #{money}
+            </if>
+            <if test="username != null and username != ''">
+                and username = #{username}
+            </if>
+        </where>
+        limit #{pageable.offset}, #{pageable.pageSize}
+    </select>
+
+    <!--统计总行数-->
+    <select id="count" resultType="java.lang.Long">
+        select count(1)
+        from tb_order_log
+        <where>
+            <if test="id != null and id != ''">
+                and id = #{id}
+            </if>
+            <if test="operater != null and operater != ''">
+                and operater = #{operater}
+            </if>
+            <if test="operateTime != null">
+                and operate_time = #{operateTime}
+            </if>
+            <if test="orderId != null and orderId != ''">
+                and order_id = #{orderId}
+            </if>
+            <if test="orderStatus != null and orderStatus != ''">
+                and order_status = #{orderStatus}
+            </if>
+            <if test="payStatus != null and payStatus != ''">
+                and pay_status = #{payStatus}
+            </if>
+            <if test="consignStatus != null and consignStatus != ''">
+                and consign_status = #{consignStatus}
+            </if>
+            <if test="remarks != null and remarks != ''">
+                and remarks = #{remarks}
+            </if>
+            <if test="money != null">
+                and money = #{money}
+            </if>
+            <if test="username != null and username != ''">
+                and username = #{username}
+            </if>
+        </where>
+    </select>
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="id" useGeneratedKeys="true">
+        insert into tb_order_log(operater, operate_time, order_id, order_status, pay_status, consign_status, remarks, money, username)
+        values (#{operater}, #{operateTime}, #{orderId}, #{orderStatus}, #{payStatus}, #{consignStatus}, #{remarks}, #{money}, #{username})
+    </insert>
+
+    <insert id="insertBatch" keyProperty="id" useGeneratedKeys="true">
+        insert into tb_order_log(operater, operate_time, order_id, order_status, pay_status, consign_status, remarks, money, username)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+        (#{entity.operater}, #{entity.operateTime}, #{entity.orderId}, #{entity.orderStatus}, #{entity.payStatus}, #{entity.consignStatus}, #{entity.remarks}, #{entity.money}, #{entity.username})
+        </foreach>
+    </insert>
+
+    <insert id="insertOrUpdateBatch" keyProperty="id" useGeneratedKeys="true">
+        insert into tb_order_log(operater, operate_time, order_id, order_status, pay_status, consign_status, remarks, money, username)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+            (#{entity.operater}, #{entity.operateTime}, #{entity.orderId}, #{entity.orderStatus}, #{entity.payStatus}, #{entity.consignStatus}, #{entity.remarks}, #{entity.money}, #{entity.username})
+        </foreach>
+        on duplicate key update
+        operater = values(operater),
+        operate_time = values(operate_time),
+        order_id = values(order_id),
+        order_status = values(order_status),
+        pay_status = values(pay_status),
+        consign_status = values(consign_status),
+        remarks = values(remarks),
+        money = values(money),
+        username = values(username)
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update tb_order_log
+        <set>
+            <if test="operater != null and operater != ''">
+                operater = #{operater},
+            </if>
+            <if test="operateTime != null">
+                operate_time = #{operateTime},
+            </if>
+            <if test="orderId != null and orderId != ''">
+                order_id = #{orderId},
+            </if>
+            <if test="orderStatus != null and orderStatus != ''">
+                order_status = #{orderStatus},
+            </if>
+            <if test="payStatus != null and payStatus != ''">
+                pay_status = #{payStatus},
+            </if>
+            <if test="consignStatus != null and consignStatus != ''">
+                consign_status = #{consignStatus},
+            </if>
+            <if test="remarks != null and remarks != ''">
+                remarks = #{remarks},
+            </if>
+            <if test="money != null">
+                money = #{money},
+            </if>
+            <if test="username != null and username != ''">
+                username = #{username},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete from tb_order_log where id = #{id}
+    </delete>
+
+</mapper>
+

@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.List;
 
-@FeignClient(name = "changgou-goods")
+@FeignClient(value = "changgou-goods")
 @RequestMapping("/sku")
 public interface SkuFeign {
 
@@ -20,4 +20,12 @@ public interface SkuFeign {
      */
     @GetMapping("/status/{status}")
     Result<List<Sku>> findByStatus(@PathVariable(value = "status") String status);
+
+
+    /***
+     * 根据ID查询SKU信息
+     * @param id : sku的ID
+     */
+    @GetMapping(value = "/{id}")
+    public Result<Sku> findById(@PathVariable(value = "id", required = true) Long id);
 }
