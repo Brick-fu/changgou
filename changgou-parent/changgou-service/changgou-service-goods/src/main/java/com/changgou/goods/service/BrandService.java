@@ -1,6 +1,5 @@
 package com.changgou.goods.service;
 
-import com.changgou.entity.Result;
 import com.changgou.goods.pojo.Brand;
 import com.github.pagehelper.PageInfo;
 

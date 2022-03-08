@@ -3,8 +3,10 @@ package com.changgou.goods.service;
 import com.changgou.goods.pojo.Goods;
 import com.changgou.goods.pojo.Sku;
 import com.github.pagehelper.PageInfo;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
+import java.util.Map;
 
 public interface SkuService {
 
@@ -67,4 +69,6 @@ public interface SkuService {
      * 根据状态查询SKU列表
      */
     List<Sku> findByStatus(String status);
+
+    int decrCount(Map<String,Integer> map);
 }

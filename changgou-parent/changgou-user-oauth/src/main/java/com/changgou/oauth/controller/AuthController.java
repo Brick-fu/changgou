@@ -1,8 +1,7 @@
 package com.changgou.oauth.controller;
 
-import com.changgou.entity.Result;
-import com.changgou.enums.StatusCodeEnum;
-import com.changgou.exception.BizException;
+import com.changgou.common.entity.Result;
+import com.changgou.common.enums.StatusCodeEnum;
 import com.changgou.oauth.service.AuthService;
 import com.changgou.oauth.util.AuthToken;
 import com.changgou.oauth.util.CookieUtil;

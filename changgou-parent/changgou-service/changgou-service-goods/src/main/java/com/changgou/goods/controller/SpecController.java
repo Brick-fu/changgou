@@ -1,12 +1,11 @@
 package com.changgou.goods.controller;
 
-import com.changgou.entity.Result;
-import com.changgou.enums.StatusCodeEnum;
+import com.changgou.common.entity.Result;
+import com.changgou.common.enums.StatusCodeEnum;
 import com.changgou.goods.pojo.Spec;
 import com.changgou.goods.service.SpecService;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -118,7 +117,7 @@ public class SpecController {
     /**
      * @Description 通过分类id获取规格参数
      * @Param [categoryId]
-     * @Return com.changgou.entity.Result<java.util.List<com.changgou.goods.pojo.Spec>>
+     * @Return com.changgou.common.entity.Result<java.util.List<com.changgou.goods.pojo.Spec>>
      * @Date 下午11:18 2021/7/23
      * @Author brick
      **/

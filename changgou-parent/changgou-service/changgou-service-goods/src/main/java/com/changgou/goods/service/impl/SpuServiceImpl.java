@@ -1,16 +1,16 @@
 package com.changgou.goods.service.impl;
 
 import com.alibaba.fastjson.JSON;
-import com.changgou.enums.GoodsEnum;
-import com.changgou.enums.StatusCodeEnum;
-import com.changgou.exception.BizException;
+import com.changgou.common.enums.GoodsEnum;
+import com.changgou.common.enums.StatusCodeEnum;
+import com.changgou.common.exception.BizException;
 import com.changgou.goods.dao.BrandMapper;
 import com.changgou.goods.dao.CategoryMapper;
 import com.changgou.goods.dao.SkuMapper;
 import com.changgou.goods.dao.SpuMapper;
 import com.changgou.goods.pojo.*;
 import com.changgou.goods.service.SpuService;
-import com.changgou.utils.IdWorker;
+import com.changgou.common.utils.IdWorker;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.apache.commons.lang.StringUtils;

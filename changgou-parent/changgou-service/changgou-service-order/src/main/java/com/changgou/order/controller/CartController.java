@@ -1,16 +1,16 @@
 package com.changgou.order.controller;
 
-import com.changgou.entity.Result;
-import com.changgou.enums.StatusCodeEnum;
+import com.changgou.common.entity.Result;
+import com.changgou.common.entity.TokenDecode;
+import com.changgou.common.enums.StatusCodeEnum;
 import com.changgou.order.pojo.TbOrderItem;
 import com.changgou.order.service.CartService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @CrossOrigin
@@ -18,6 +18,9 @@ import java.util.List;
 public class CartController {
     @Autowired
     private CartService cartService;
+
+    @Autowired
+    private TokenDecode tokenDecode;
 
     /***
      * 加入购物车
@@ -28,7 +31,8 @@ public class CartController {
     @RequestMapping(value = "/add")
     public Result<Void> add(Integer num, Long id){
         //用户名
-        String username="szitheima";
+        String username = tokenDecode.getUserName();
+        Map<String, Object> userInfo = tokenDecode.getUserInfo();
         //将商品加入购物车
         cartService.add(num,id,username);
         return new Result<>(true, StatusCodeEnum.SUCCESS.getCode(), "加入购物车成功！");
@@ -41,7 +45,7 @@ public class CartController {
     @GetMapping(value = "/list")
     public Result<List<TbOrderItem>> list(){
         //用户名
-        String username="szitheima";
+        String username = tokenDecode.getUserName();
         List<TbOrderItem> orderItems = cartService.list(username);
         return new Result<>(true,StatusCodeEnum.SUCCESS.getCode(), "购物车列表查询成功！",orderItems);
     }

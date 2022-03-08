@@ -1,7 +1,7 @@
 package com.changgou.goods.controller;
 
-import com.changgou.entity.Result;
-import com.changgou.enums.StatusCodeEnum;
+import com.changgou.common.entity.Result;
+import com.changgou.common.enums.StatusCodeEnum;
 import com.changgou.goods.pojo.Brand;
 import com.changgou.goods.service.BrandService;
 import com.github.pagehelper.PageInfo;
@@ -23,7 +23,7 @@ public class BrandController {
     /**
      * @Description 查询全部品牌信息
      * @Param []
-     * @Return com.changgou.entity.Result<com.changgou.goods.pojo.Brand>
+     * @Return com.changgou.common.entity.Result<com.changgou.goods.pojo.Brand>
      * @Date 下午11:33 2021/4/26
      * @Author brick
      **/
@@ -37,7 +37,7 @@ public class BrandController {
     /**
      * @Description 根据id查询品牌数据
      * @Param [id]
-     * @Return com.changgou.entity.Result
+     * @Return com.changgou.common.entity.Result
      * @Date 下午9:34 2021/4/27
      * @Author brick
      **/
@@ -51,7 +51,7 @@ public class BrandController {
     /**
      * @Description 新增品牌数据
      * @Param [brand]
-     * @Return com.changgou.entity.Result<com.changgou.goods.pojo.Brand>
+     * @Return com.changgou.common.entity.Result<com.changgou.goods.pojo.Brand>
      * @Date 下午9:46 2021/4/27
      * @Author brick
      **/
@@ -65,7 +65,7 @@ public class BrandController {
     /**
      * @Description 更新品牌数据
      * @Param [brand, id]
-     * @Return com.changgou.entity.Result<com.changgou.goods.pojo.Brand>
+     * @Return com.changgou.common.entity.Result<com.changgou.goods.pojo.Brand>
      * @Date 下午10:30 2021/4/27
      * @Author brick
      **/
@@ -80,7 +80,7 @@ public class BrandController {
     /**
      * @Description 删除品牌数据
      * @Param [id]
-     * @Return com.changgou.entity.Result<com.changgou.goods.pojo.Brand>
+     * @Return com.changgou.common.entity.Result<com.changgou.goods.pojo.Brand>
      * @Date 下午10:31 2021/4/27
      * @Author bricks
      **/
@@ -94,7 +94,7 @@ public class BrandController {
     /**
      * @Description 多条件查询品牌数据
      * @Param [searchMap]
-     * @Return com.changgou.entity.Result<com.changgou.goods.pojo.Brand>
+     * @Return com.changgou.common.entity.Result<com.changgou.goods.pojo.Brand>
      * @Date 下午10:38 2021/4/27
      * @Author brick
      **/
@@ -108,7 +108,7 @@ public class BrandController {
     /**
      * @Description 分页查询品牌数据
      * @Param [page, size]
-     * @Return com.changgou.entity.Result<com.github.pagehelper.PageInfo < com.changgou.goods.pojo.Brand>>
+     * @Return com.changgou.common.entity.Result<com.github.pagehelper.PageInfo < com.changgou.goods.pojo.Brand>>
      * @Date 下午11:23 2021/4/29
      * @Author brick
      **/
@@ -121,7 +121,7 @@ public class BrandController {
     /**
      * @Description 分页搜索品牌数据
      * @Param [searchMap, page, size]
-     * @Return com.changgou.entity.Result<com.github.pagehelper.PageInfo < com.changgou.goods.pojo.Brand>>
+     * @Return com.changgou.common.entity.Result<com.github.pagehelper.PageInfo < com.changgou.goods.pojo.Brand>>
      * @Date 下午11:26 2021/4/29
      * @Author brick
      **/

@@ -4,6 +4,9 @@ import com.changgou.order.pojo.TbOrder;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 
+import java.util.Date;
+import java.util.Map;
+
 /**
  * (TbOrder)表服务接口
  *
@@ -36,6 +39,19 @@ public interface TbOrderService {
      * @return 实例对象
      */
     TbOrder insert(TbOrder tbOrder);
+    
+    /*
+     * @Desc 保存订单信息
+     * @Date 下午10:48 2022/3/5
+     * @Author brick
+     **/
+    TbOrder saveOrder(TbOrder tbOrder);
+
+    /***
+     * 根据订单ID修改订单状态
+     * @param map
+     */
+    void updateStatus(Map<String,String> map);
 
     /**
      * 修改数据

@@ -1,12 +1,13 @@
 package com.changgou.user.controller;
 
 import com.alibaba.fastjson.JSON;
-import com.changgou.entity.Result;
-import com.changgou.enums.StatusCodeEnum;
+import com.changgou.common.entity.Result;
+import com.changgou.common.entity.TokenDecode;
+import com.changgou.common.enums.StatusCodeEnum;
 import com.changgou.user.pojo.TbUser;
 import com.changgou.user.service.TbUserService;
-import com.changgou.utils.BCrypt;
-import com.changgou.utils.JwtUtil;
+import com.changgou.common.utils.BCrypt;
+import com.changgou.common.utils.JwtUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,7 +36,23 @@ public class TbUserController {
     @Autowired
     private TbUserService tbUserService;
 
+    @Autowired
+    private TokenDecode tokenDecode;
+
     private final Logger logger = LoggerFactory.getLogger(TbUserController.class);
+
+    /***
+     * 增加用户积分
+     * @param points:要添加的积分
+     */
+    @GetMapping(value = "/points/add")
+    public Result<Void> addPoints(Integer points){
+        //获取用户名
+        String username = tokenDecode.getUserName();
+        //添加积分
+        tbUserService.addUserPoints(username,points);
+        return new Result<>(true,StatusCodeEnum.SUCCESS.getCode(), "添加积分成功！");
+    }
 
     @RequestMapping(value = "/login")
     public Result<String> login(String username, String password, HttpServletResponse response){

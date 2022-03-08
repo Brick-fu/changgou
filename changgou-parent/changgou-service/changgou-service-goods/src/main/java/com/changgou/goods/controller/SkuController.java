@@ -1,7 +1,7 @@
 package com.changgou.goods.controller;
 
-import com.changgou.entity.Result;
-import com.changgou.enums.StatusCodeEnum;
+import com.changgou.common.entity.Result;
+import com.changgou.common.enums.StatusCodeEnum;
 import com.changgou.goods.pojo.Sku;
 import com.changgou.goods.service.SkuService;
 import org.slf4j.Logger;
@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/sku")
@@ -20,6 +21,12 @@ public class SkuController {
     private SkuService skuService;
 
     private final Logger logger = LoggerFactory.getLogger(SkuController.class);
+
+    @GetMapping("/decr/count")
+    public Result<Void> decrCount(@RequestParam Map<String, Integer> map){
+        skuService.decrCount(map);
+        return new Result<>(true,StatusCodeEnum.SUCCESS.getCode(), "商品库存递减成功！");
+    }
 
     /***
      * 修改sku数据

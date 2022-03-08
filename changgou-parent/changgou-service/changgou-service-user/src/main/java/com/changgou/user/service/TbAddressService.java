@@ -4,6 +4,8 @@ import com.changgou.user.pojo.TbAddress;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 
+import java.util.List;
+
 /**
  * (TbAddress)表服务接口
  *
@@ -52,5 +54,12 @@ public interface TbAddressService {
      * @return 是否成功
      */
     boolean deleteById(Integer id);
+
+    /*
+     * @Desc 通过用户登录名获取地址
+     * @Date 下午6:12 2022/2/20
+     * @Author brick
+     **/
+    List<TbAddress> getUserAddress(String username);
 
 }

@@ -82,5 +82,6 @@ public interface TbAddressDao {
      */
     int deleteById(Integer id);
 
+    List<TbAddress> getUserAddress(String username);
 }
 

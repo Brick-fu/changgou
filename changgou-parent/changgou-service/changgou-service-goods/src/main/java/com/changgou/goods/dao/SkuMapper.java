@@ -1,9 +1,7 @@
 package com.changgou.goods.dao;
 
 import com.changgou.goods.pojo.Sku;
-import org.apache.ibatis.annotations.Delete;
-import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.*;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -63,4 +61,12 @@ public interface SkuMapper {
 
     @Select("SELECT * from tb_sku WHERE status = #{status}")
     List<Sku> findByStatus(String status);
+
+    /**
+     * 递减库存
+     * @param skuId,num
+     * @return
+     */
+    @Update("UPDATE tb_sku SET num=num-#{num},sale_num=sale_num+#{num} WHERE id=#{skuId} AND num>=#{num}")
+    int decrCount(@Param(value = "skuId") Long skuId, @Param(value = "num") Integer num);
 }

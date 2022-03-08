@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class SkuServiceImpl implements SkuService {
@@ -116,5 +117,18 @@ public class SkuServiceImpl implements SkuService {
     public List<Sku> findByStatus(String status) {
         logger.info("SkuServiceImpl.findByStatus,status={}",status);
         return skuMapper.findByStatus(status);
+    }
+
+    @Override
+    public int decrCount(Map<String, Integer> map) {
+        int count = 0;
+        for (String skuId:map.keySet()) {
+            Integer num = map.get(skuId);
+            count = skuMapper.decrCount(Long.valueOf(skuId), num);
+            if(count < 1){
+                logger.info("SkuServiceImpl.decrCount：库存不足，购买失败！");
+            }
+        }
+        return count;
     }
 }

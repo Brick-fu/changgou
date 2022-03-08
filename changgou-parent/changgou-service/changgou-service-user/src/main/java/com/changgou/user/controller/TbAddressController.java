@@ -1,28 +1,44 @@
 package com.changgou.user.controller;
 
+import com.changgou.common.entity.Result;
+import com.changgou.common.entity.TokenDecode;
+import com.changgou.common.enums.StatusCodeEnum;
 import com.changgou.user.pojo.TbAddress;
 import com.changgou.user.service.TbAddressService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 /**
- * (TbAddress)表控制层
+ * (TbAddress)用户地址
  *
  * @author makejava
  * @since 2021-12-28 23:43:30
  */
 @RestController
-@RequestMapping("tbAddress")
+@RequestMapping("/address")
 public class TbAddressController {
     /**
      * 服务对象
      */
     @Resource
     private TbAddressService tbAddressService;
+
+    @Autowired
+    private TokenDecode tokenDecode;
+
+
+    @GetMapping("/list")
+    public Result<List<TbAddress>> getUserAddress(){
+        String userName = tokenDecode.getUserName();
+        List<TbAddress> userAddress = tbAddressService.getUserAddress(userName);
+        return new Result<>(true, StatusCodeEnum.SUCCESS.getCode(), "查询成功!",userAddress);
+    }
 
     /**
      * 分页查询

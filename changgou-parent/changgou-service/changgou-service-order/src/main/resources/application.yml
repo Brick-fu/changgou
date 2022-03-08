@@ -39,6 +39,11 @@ spring:
     cluster:
       nodes: www.brick.com:9001,www.brick.com:9003,www.brick.com:9005,www.brick.com:9002,www.brick.com:9004,www.brick.com:9006
       max-redirects: 3
+  rabbitmq:
+    addresses: www.brick.com
+    username: guest
+    password: guest
+    port: 5672
 eureka:
   client:
     service‐url:
@@ -61,3 +66,8 @@ mybatis:
 pagehelper:
   helper-dialect: mysql
   reasonable: true
+#位置支付交换机和队列
+mq:
+  pay:
+    queue:
+      order: queue.order

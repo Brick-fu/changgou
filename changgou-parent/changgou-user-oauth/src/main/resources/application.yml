@@ -1,17 +1,8 @@
 server:
-  port: 9001
+  port: 9010
 spring:
   application:
     name: user-oauth
-  redis:
-    host: www.brick.com
-    port: 6379
-    password:
-    jedis:
-      pool:
-        max-active: 8
-        max-idle: 8
-        min-idle: 0
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://www.brick.com:3306/changgou_oauth?useUnicode=true&characterEncoding=utf-8&useSSL=false&allowMultiQueries=true&serverTimezone=UTC

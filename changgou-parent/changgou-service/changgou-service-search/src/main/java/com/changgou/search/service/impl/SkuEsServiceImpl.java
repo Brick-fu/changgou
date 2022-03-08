@@ -1,8 +1,8 @@
 package com.changgou.search.service.impl;
 
 import com.alibaba.fastjson.JSON;
-import com.changgou.entity.Result;
-import com.changgou.enums.GoodsEnum;
+import com.changgou.common.entity.Result;
+import com.changgou.common.enums.GoodsEnum;
 import com.changgou.goods.feign.SkuFeign;
 import com.changgou.goods.pojo.Sku;
 import com.changgou.search.dao.SkuEsDao;

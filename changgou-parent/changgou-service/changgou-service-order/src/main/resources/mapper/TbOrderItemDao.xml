@@ -144,9 +144,9 @@
     </select>
 
     <!--新增所有列-->
-    <insert id="insert" keyProperty="id" useGeneratedKeys="true">
-        insert into tb_order_item(category_id1, category_id2, category_id3, spu_id, sku_id, order_id, name, price, num, money, pay_money, image, weight, post_fee, is_return)
-        values (#{categoryId1}, #{categoryId2}, #{categoryId3}, #{spuId}, #{skuId}, #{orderId}, #{name}, #{price}, #{num}, #{money}, #{payMoney}, #{image}, #{weight}, #{postFee}, #{isReturn})
+    <insert id="insert" keyProperty="id" useGeneratedKeys="false">
+        insert into tb_order_item(id,category_id1, category_id2, category_id3, spu_id, sku_id, order_id, name, price, num, money, pay_money, image, weight, post_fee, is_return)
+        values (#{id},#{categoryId1}, #{categoryId2}, #{categoryId3}, #{spuId}, #{skuId}, #{orderId}, #{name}, #{price}, #{num}, #{money}, #{payMoney}, #{image}, #{weight}, #{postFee}, #{isReturn})
     </insert>
 
     <insert id="insertBatch" keyProperty="id" useGeneratedKeys="true">

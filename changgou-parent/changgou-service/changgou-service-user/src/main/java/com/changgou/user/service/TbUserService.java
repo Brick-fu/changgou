@@ -12,6 +12,14 @@ import org.springframework.data.domain.PageRequest;
  */
 public interface TbUserService {
 
+    /***
+     * 添加用户积分
+     * @param username
+     * @param point
+     * @return
+     */
+    int addUserPoints(String username,Integer point);
+
     /**
      * 通过ID查询单条数据
      *

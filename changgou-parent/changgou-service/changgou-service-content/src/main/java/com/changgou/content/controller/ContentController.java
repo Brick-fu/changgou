@@ -2,8 +2,8 @@ package com.changgou.content.controller;
 
 import com.changgou.content.pojo.TbContent;
 import com.changgou.content.service.TbContentService;
-import com.changgou.entity.Result;
-import com.changgou.enums.StatusCodeEnum;
+import com.changgou.common.entity.Result;
+import com.changgou.common.enums.StatusCodeEnum;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;

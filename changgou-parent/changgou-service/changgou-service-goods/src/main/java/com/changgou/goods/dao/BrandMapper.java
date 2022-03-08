@@ -1,8 +1,7 @@
 package com.changgou.goods.dao;
 
-import com.changgou.entity.Page;
+import com.changgou.common.entity.Page;
 import com.changgou.goods.pojo.Brand;
-import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
 import org.springframework.stereotype.Repository;
 import java.util.List;

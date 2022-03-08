@@ -3,7 +3,7 @@ package com.changgou.canal.handler;
 import com.alibaba.fastjson.JSON;
 import com.changgou.content.feign.ContentFeign;
 import com.changgou.content.pojo.TbContent;
-import com.changgou.entity.Result;
+import com.changgou.common.entity.Result;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

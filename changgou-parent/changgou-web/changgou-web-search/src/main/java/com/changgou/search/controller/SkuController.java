@@ -1,6 +1,6 @@
 package com.changgou.search.controller;
 
-import com.changgou.entity.Page;
+import com.changgou.common.entity.Page;
 import com.changgou.search.feign.SkuFeign;
 import com.changgou.search.pojo.SkuInfo;
 import org.springframework.beans.factory.annotation.Autowired;

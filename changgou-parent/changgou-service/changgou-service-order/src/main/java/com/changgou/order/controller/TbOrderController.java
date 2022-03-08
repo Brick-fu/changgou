@@ -1,7 +1,11 @@
 package com.changgou.order.controller;
 
+import com.changgou.common.entity.Result;
+import com.changgou.common.entity.TokenDecode;
+import com.changgou.common.enums.StatusCodeEnum;
 import com.changgou.order.pojo.TbOrder;
 import com.changgou.order.service.TbOrderService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.http.ResponseEntity;
@@ -23,6 +27,10 @@ public class TbOrderController {
      */
     @Resource
     private TbOrderService tbOrderService;
+
+    @Autowired
+    private TokenDecode tokenDecode;
+
 
     /**
      * 分页查询
@@ -48,14 +56,18 @@ public class TbOrderController {
     }
 
     /**
-     * 新增数据
-     *
+     * 新增订单
      * @param tbOrder 实体
      * @return 新增结果
      */
-    @PostMapping
-    public ResponseEntity<TbOrder> add(TbOrder tbOrder) {
-        return ResponseEntity.ok(this.tbOrderService.insert(tbOrder));
+    @PostMapping(value = "/add")
+    public Result<TbOrder> add(@RequestBody TbOrder tbOrder) {
+        //获取用户名
+        String username = tokenDecode.getUserName();
+        //设置购买用户
+        tbOrder.setUsername(username);
+        TbOrder order = tbOrderService.saveOrder(tbOrder);
+        return new Result<>(true, StatusCodeEnum.SUCCESS.getCode(), "添加成功",order);
     }
 
     /**

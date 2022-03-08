@@ -3,6 +3,7 @@ package com.changgou.user.dao;
 import com.changgou.user.pojo.TbUser;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.annotations.Update;
 import org.springframework.data.domain.Pageable;
 import java.util.List;
 
@@ -14,6 +15,15 @@ import java.util.List;
  */
 @Mapper
 public interface TbUserDao {
+
+    /***
+     * 增加用户积分
+     * @param username
+     * @param point
+     * @return
+     */
+    @Update("UPDATE tb_user SET points=points+#{point} WHERE  username=#{username}")
+    int addUserPoints(@Param("username") String username, @Param("point") Integer point);
 
     /**
      * 通过ID查询单条数据

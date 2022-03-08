@@ -2,7 +2,7 @@ package com.changgou.file.controller;
 
 import com.changgou.file.pojo.FileInf;
 import com.changgou.file.util.MinioClientUtil;
-import com.changgou.utils.DateUtil;
+import com.changgou.common.utils.DateUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.util.StringUtils;

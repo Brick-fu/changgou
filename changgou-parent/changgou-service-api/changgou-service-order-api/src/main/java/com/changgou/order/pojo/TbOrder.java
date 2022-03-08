@@ -2,6 +2,7 @@ package com.changgou.order.pojo;
 
 import java.util.Date;
 import java.io.Serializable;
+import java.util.List;
 
 /**
  * (TbOrder)实体类
@@ -120,6 +121,15 @@ public class TbOrder implements Serializable {
      */
     private String isDelete;
 
+    private List<Long> skuIds;
+
+    public List<Long> getSkuIds() {
+        return skuIds;
+    }
+
+    public void setSkuIds(List<Long> skuIds) {
+        this.skuIds = skuIds;
+    }
 
     public String getId() {
         return id;

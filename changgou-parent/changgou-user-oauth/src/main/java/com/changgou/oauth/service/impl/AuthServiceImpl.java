@@ -1,7 +1,7 @@
 package com.changgou.oauth.service.impl;
 
-import com.changgou.enums.StatusCodeEnum;
-import com.changgou.exception.BizException;
+import com.changgou.common.enums.StatusCodeEnum;
+import com.changgou.common.exception.BizException;
 import com.changgou.oauth.service.AuthService;
 import com.changgou.oauth.util.AuthToken;
 import org.slf4j.Logger;
@@ -14,7 +14,6 @@ import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.client.ClientHttpResponse;
 import org.springframework.stereotype.Service;
-import org.springframework.util.CollectionUtils;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.DefaultResponseErrorHandler;
@@ -24,7 +23,6 @@ import org.springframework.web.client.RestTemplate;
 import java.io.IOException;
 import java.util.Base64;
 import java.util.Map;
-import java.util.Objects;
 
 @Service
 public class AuthServiceImpl implements AuthService {

@@ -1,6 +1,6 @@
 package com.changgou.goods.feign;
 
-import com.changgou.entity.Result;
+import com.changgou.common.entity.Result;
 import com.changgou.goods.pojo.Spu;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;

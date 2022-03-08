@@ -1,7 +1,7 @@
 package com.changgou.goods.controller;
 
-import com.changgou.entity.Result;
-import com.changgou.enums.StatusCodeEnum;
+import com.changgou.common.entity.Result;
+import com.changgou.common.enums.StatusCodeEnum;
 import com.changgou.goods.pojo.Album;
 import com.changgou.goods.service.AlbumService;
 import com.github.pagehelper.PageInfo;
@@ -21,7 +21,7 @@ public class AlbumController {
    /**
     * @Description Album分页条件搜索实现
     * @Param [album, page, size]
-    * @Return com.changgou.entity.Result<com.github.pagehelper.PageInfo>
+    * @Return com.changgou.common.entity.Result<com.github.pagehelper.PageInfo>
     * @Date 下午10:54 2021/6/9
     * @Author brick
     **/
@@ -37,7 +37,7 @@ public class AlbumController {
    /**
     * @Description Album分页搜索实现
     * @Param [page, size]
-    * @Return com.changgou.entity.Result<com.github.pagehelper.PageInfo<com.changgou.goods.pojo.Album>>
+    * @Return com.changgou.common.entity.Result<com.github.pagehelper.PageInfo<com.changgou.goods.pojo.Album>>
     * @Date 下午11:03 2021/6/9
     * @Author brick
     **/
@@ -52,7 +52,7 @@ public class AlbumController {
     /**
      * @Description 多条件搜索品牌数据
      * @Param [album]
-     * @Return com.changgou.entity.Result<java.util.List<com.changgou.goods.pojo.Album>>
+     * @Return com.changgou.common.entity.Result<java.util.List<com.changgou.goods.pojo.Album>>
      * @Date 下午10:53 2021/6/9
      * @Author brick
      **/
@@ -66,7 +66,7 @@ public class AlbumController {
     /**
      * @Description 根据ID删除品牌数据
      * @Param [id]
-     * @Return com.changgou.entity.Result<java.lang.Void>
+     * @Return com.changgou.common.entity.Result<java.lang.Void>
      * @Date 下午10:53 2021/6/9
      * @Author brick
      **/
@@ -80,7 +80,7 @@ public class AlbumController {
     /**
      * @Description 修改Album数据
      * @Param [album, id]
-     * @Return com.changgou.entity.Result<java.lang.Void>
+     * @Return com.changgou.common.entity.Result<java.lang.Void>
      * @Date 下午10:52 2021/6/9
      * @Author brick
      **/
@@ -97,7 +97,7 @@ public class AlbumController {
    /**
     * @Description 新增Album数据
     * @Param [album]
-    * @Return com.changgou.entity.Result<java.lang.Void>
+    * @Return com.changgou.common.entity.Result<java.lang.Void>
     * @Date 下午10:52 2021/6/9
     * @Author brick
     **/
@@ -111,7 +111,7 @@ public class AlbumController {
     /**
      * @Description 根据ID查询Album数据
      * @Param [id]
-     * @Return com.changgou.entity.Result<com.changgou.goods.pojo.Album>
+     * @Return com.changgou.common.entity.Result<com.changgou.goods.pojo.Album>
      * @Date 下午10:52 2021/6/9
      * @Author brick
      **/
@@ -126,7 +126,7 @@ public class AlbumController {
     /**
      * @Description 查询Album全部数据
      * @Param []
-     * @Return com.changgou.entity.Result<java.util.List<com.changgou.goods.pojo.Album>>
+     * @Return com.changgou.common.entity.Result<java.util.List<com.changgou.goods.pojo.Album>>
      * @Date 下午10:52 2021/6/9
      * @Author brick
      **/

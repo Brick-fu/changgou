@@ -3,6 +3,8 @@ package com.changgou.user.service.impl;
 import com.changgou.user.pojo.TbUser;
 import com.changgou.user.dao.TbUserDao;
 import com.changgou.user.service.TbUserService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -18,8 +20,17 @@ import javax.annotation.Resource;
  */
 @Service("tbUserService")
 public class TbUserServiceImpl implements TbUserService {
+
     @Resource
     private TbUserDao tbUserDao;
+
+    private final Logger logger = LoggerFactory.getLogger(TbUserServiceImpl.class);
+
+    @Override
+    public int addUserPoints(String username, Integer point) {
+        logger.info("TbUserServiceImpl.addUserPoints,{}",point);
+        return tbUserDao.addUserPoints(username,point);
+    }
 
     /**
      * 通过ID查询单条数据

@@ -9,6 +9,7 @@ import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 /**
  * (TbAddress)表服务实现类
@@ -20,6 +21,8 @@ import javax.annotation.Resource;
 public class TbAddressServiceImpl implements TbAddressService {
     @Resource
     private TbAddressDao tbAddressDao;
+
+
 
     /**
      * 通过ID查询单条数据
@@ -78,5 +81,15 @@ public class TbAddressServiceImpl implements TbAddressService {
     @Override
     public boolean deleteById(Integer id) {
         return this.tbAddressDao.deleteById(id) > 0;
+    }
+
+    /*
+     * @Desc 根据用户登录名获取地址
+     * @Date 下午6:12 2022/2/20
+     * @Author brick
+     **/
+    @Override
+    public List<TbAddress> getUserAddress(String username) {
+        return tbAddressDao.getUserAddress(username);
     }
 }

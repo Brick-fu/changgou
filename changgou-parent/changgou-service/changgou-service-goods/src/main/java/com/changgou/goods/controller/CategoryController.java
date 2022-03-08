@@ -1,7 +1,7 @@
 package com.changgou.goods.controller;
 
-import com.changgou.entity.Result;
-import com.changgou.enums.StatusCodeEnum;
+import com.changgou.common.entity.Result;
+import com.changgou.common.enums.StatusCodeEnum;
 import com.changgou.goods.pojo.Category;
 import com.changgou.goods.service.CategoryService;
 import com.github.pagehelper.PageInfo;

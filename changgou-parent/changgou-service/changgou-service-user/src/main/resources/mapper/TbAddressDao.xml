@@ -23,6 +23,14 @@
         where id = #{id}
     </select>
 
+    <!--查询单个-->
+    <select id="getUserAddress" resultMap="TbAddressMap">
+        select
+            id, username, provinceid, cityid, areaid, phone, address, contact, is_default, alias
+        from tb_address
+        where username = #{username}
+    </select>
+
     <!--查询指定行数据-->
     <select id="queryAllByLimit" resultMap="TbAddressMap">
         select

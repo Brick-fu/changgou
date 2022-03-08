@@ -1,6 +1,6 @@
 package com.changgou.order.service.impl;
 
-import com.changgou.entity.Result;
+import com.changgou.common.entity.Result;
 import com.changgou.goods.feign.SkuFeign;
 import com.changgou.goods.feign.SpuFeign;
 import com.changgou.goods.pojo.Sku;
