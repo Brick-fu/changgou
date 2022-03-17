@@ -6,7 +6,6 @@ import com.changgou.common.enums.StatusCodeEnum;
 import com.changgou.order.pojo.TbOrderItem;
 import com.changgou.order.service.CartService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -24,18 +23,21 @@ public class CartController {
 
     /***
      * 加入购物车
-     * @param num:购买的数量
-     * @param id：购买的商品(SKU)ID
+     *  num:购买的数量
+     *  id：购买的商品(SKU)ID
      * @return
      */
     @RequestMapping(value = "/add")
-    public Result<Void> add(Integer num, Long id){
+    public Result<Void> add(@RequestBody Map<String,String> map){
+        String num = map.get("num");
+        String id = map.get("id");
         //用户名
         String username = tokenDecode.getUserName();
         Map<String, Object> userInfo = tokenDecode.getUserInfo();
         //将商品加入购物车
-        cartService.add(num,id,username);
+        cartService.add(Integer.valueOf(num),Long.valueOf(id),username);
         return new Result<>(true, StatusCodeEnum.SUCCESS.getCode(), "加入购物车成功！");
+
     }
 
     /***

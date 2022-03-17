@@ -23,6 +23,7 @@ public class OrderPayMessageListener {
 
     @RabbitHandler
     public void consumeMessage(String msg){
+        logger.info("OrderPayMessageListener.consumeMessage,{}",msg);
         Map<String,String> map = JSON.parseObject(msg, Map.class);
         String return_code = map.get("return_code");
         String return_msg = map.get("return_msg");
@@ -45,7 +46,5 @@ public class OrderPayMessageListener {
         }else{
             logger.info("支付失败!code={}，msg：{}",return_code,return_msg);
         }
-
-
     }
 }

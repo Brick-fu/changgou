@@ -124,7 +124,9 @@ public class SkuServiceImpl implements SkuService {
         int count = 0;
         for (String skuId:map.keySet()) {
             Integer num = map.get(skuId);
+            logger.info("SkuServiceImpl.decrCount,skuId={},num={}",skuId,num);
             count = skuMapper.decrCount(Long.valueOf(skuId), num);
+            logger.info("SkuServiceImpl.decrCount,count={}",count);
             if(count < 1){
                 logger.info("SkuServiceImpl.decrCount：库存不足，购买失败！");
             }

@@ -7,6 +7,8 @@ import com.changgou.goods.pojo.Sku;
 import com.changgou.goods.pojo.Spu;
 import com.changgou.order.pojo.TbOrderItem;
 import com.changgou.order.service.CartService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
@@ -25,10 +27,13 @@ public class CartServiceImpl implements CartService {
     @Autowired
     private SpuFeign spuFeign;
 
+    private final Logger logger = LoggerFactory.getLogger(CartServiceImpl.class);
+
     @Override
     public List<TbOrderItem> list(String username) {
+        logger.info("CartServiceImpl.list,{}",username);
         //查询所有购物车数据
-        List<TbOrderItem> orderItems = redisTemplate.boundHashOps("Cart_"+username).values();
+        List<TbOrderItem> orderItems = redisTemplate.boundHashOps("CART_"+username).values();
         return orderItems;
     }
 
@@ -41,8 +46,9 @@ public class CartServiceImpl implements CartService {
      */
     @Override
     public void add(Integer num, Long id, String username) {
+        logger.info("CartServiceImpl.add,num:{},id:{},username:{}",num,id,username);
         if(num <= 0){
-            redisTemplate.opsForHash().delete("Cart_"+username,id);
+            redisTemplate.opsForHash().delete("CART_"+username,id);
             return;
         }
 
@@ -64,7 +70,7 @@ public class CartServiceImpl implements CartService {
              * value=OrderItem
              */
             // redisTemplate.boundHashOps("Cart_"+username).put(id,orderItem);
-            redisTemplate.opsForHash().put("Cart_"+username,id,orderItem);
+            redisTemplate.opsForHash().put("CART_"+username,id,orderItem);
         }
     }
 
@@ -75,6 +81,7 @@ public class CartServiceImpl implements CartService {
      * @return
      */
     private TbOrderItem sku2OrderItem(Sku sku,Spu spu,Integer num){
+        logger.info("CartServiceImpl.sku2OrderItem,sku:{},spu:{},num:{}",sku,spu,num);
         TbOrderItem orderItem = new TbOrderItem();
         orderItem.setSpuId(sku.getSpuId());
         orderItem.setSkuId(sku.getId());

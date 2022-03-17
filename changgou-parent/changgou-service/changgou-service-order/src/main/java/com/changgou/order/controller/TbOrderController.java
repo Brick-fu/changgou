@@ -5,6 +5,8 @@ import com.changgou.common.entity.TokenDecode;
 import com.changgou.common.enums.StatusCodeEnum;
 import com.changgou.order.pojo.TbOrder;
 import com.changgou.order.service.TbOrderService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -20,7 +22,7 @@ import javax.annotation.Resource;
  * @since 2022-02-14 23:09:12
  */
 @RestController
-@RequestMapping("order")
+@RequestMapping("/order")
 public class TbOrderController {
     /**
      * 服务对象
@@ -30,6 +32,8 @@ public class TbOrderController {
 
     @Autowired
     private TokenDecode tokenDecode;
+
+    private final Logger logger = LoggerFactory.getLogger(TbOrderController.class);
 
 
     /**
@@ -62,6 +66,7 @@ public class TbOrderController {
      */
     @PostMapping(value = "/add")
     public Result<TbOrder> add(@RequestBody TbOrder tbOrder) {
+        logger.info("TbOrderController.add,{}",tbOrder);
         //获取用户名
         String username = tokenDecode.getUserName();
         //设置购买用户

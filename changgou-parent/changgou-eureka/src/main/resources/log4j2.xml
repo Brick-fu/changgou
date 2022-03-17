@@ -8,7 +8,7 @@
 <Configuration status="warn" monitorInterval="30">
     <Properties>
         <property name="sysCode">changgou</property>
-        <property name="appCode">gateway</property>
+        <property name="appCode">eureka</property>
         <property name="LOG_EXCEPTION_CONVERSION_WORD">%xwEx</property>
         <property name="LOG_LEVEL_PATTERN">%5p</property>
         <property name="LOG_DATEFORMAT_PATTERN">yyyy-MM-dd HH:mm:ss.SSS</property>
@@ -55,7 +55,7 @@
         <!-- 过滤掉spring和mybatis的一些信息，输出到配置的一个或多个AppenderRef中-->
         <Logger name="org.springframework" level="DEBUG" additivity="false"/>
         <Logger name="org.mybatis" level="DEBUG" additivity="false"/>
-        <Logger name="com.changgou.gateway.dao" level="DEBUG"/>
+        <Logger name="com.changgou.eureka.dao" level="DEBUG"/>
         <Logger name="com.netflix.discovery" level="error"/>
         <Logger name="org.springframework" level="error"/>
         <Logger name="org.springframework.cloud" level="error"/>

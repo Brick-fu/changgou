@@ -1,4 +1,4 @@
-package com.changgou.order.config;
+package com.changgou.goods.config;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

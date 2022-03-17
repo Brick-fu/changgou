@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.changgou.order.dao.TbReturnOrderDao">
 
-    <resultMap type="com.changgou.order.entity.TbReturnOrder" id="TbReturnOrderMap">
+    <resultMap type="com.changgou.order.pojo.TbReturnOrder" id="TbReturnOrderMap">
         <result property="id" column="id" jdbcType="INTEGER"/>
         <result property="orderId" column="order_id" jdbcType="INTEGER"/>
         <result property="applyTime" column="apply_time" jdbcType="TIMESTAMP"/>

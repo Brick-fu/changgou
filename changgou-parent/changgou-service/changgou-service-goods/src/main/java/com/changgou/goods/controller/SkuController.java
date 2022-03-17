@@ -4,11 +4,13 @@ import com.changgou.common.entity.Result;
 import com.changgou.common.enums.StatusCodeEnum;
 import com.changgou.goods.pojo.Sku;
 import com.changgou.goods.service.SkuService;
+import com.github.pagehelper.PageInfo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -22,8 +24,9 @@ public class SkuController {
 
     private final Logger logger = LoggerFactory.getLogger(SkuController.class);
 
-    @GetMapping("/decr/count")
-    public Result<Void> decrCount(@RequestParam Map<String, Integer> map){
+    @PostMapping("/decr/count")
+    public Result<Void> decrCount(@RequestBody Map<String, Integer> map){
+        logger.info("SkuController.decrCount,{}",map);
         skuService.decrCount(map);
         return new Result<>(true,StatusCodeEnum.SUCCESS.getCode(), "商品库存递减成功！");
     }
@@ -59,7 +62,18 @@ public class SkuController {
      */
     @GetMapping(value = "/{id}")
     public Result<Sku> findById(@PathVariable(value = "id") Long id){
+        logger.info("SkuController.findById,{}",id);
         Sku sku = skuService.findById(id);
         return new Result<>(true,StatusCodeEnum.SUCCESS.getCode(),"查询成功",sku);
+    }
+
+    @RequestMapping("find/{page}/{size}")
+    public Result<Map<String,Object>> queryAll(@PathVariable("page") Integer page,@PathVariable("size") Integer size){
+        logger.info("SkuController.queryAll,page:{},size:{}",page,size);
+        PageInfo<Sku> skuInfo = skuService.findPage(new Sku(), page, size);
+        Map<String,Object> result = new HashMap<>();
+        result.put("total",skuInfo.getTotal());
+        result.put("data",skuInfo.getList());
+        return new Result<>(true,StatusCodeEnum.SUCCESS.getCode(),"查询成功",result);
     }
 }

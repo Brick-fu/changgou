@@ -13,7 +13,7 @@ spring:
   datasource:
     type: com.alibaba.druid.pool.DruidDataSource
     driver‐class‐name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://www.brick.com:3306/changgou_goods?serverTimezone=Asia/Shanghai&useSSL=true
+    url: jdbc:mysql://www.brick.com:3306/changgou_order?serverTimezone=Asia/Shanghai&useSSL=true
     username: root
     password: 123456
     druid:
@@ -58,10 +58,27 @@ management:
 feign:
   hystrix:
     enabled: true
+  httpclient:
+    connection-timeout: 10000
+  client:
+    config:
+      default: # 指定feignclients对应的名称 如果指定的是default 表示全局所有的client 的超时时间设置
+        connectTimeout: 10000
+        readTimeout: 10000
+        loggerLevel: basic
+#hystrix 配置
+hystrix:
+  command:
+    default:
+      execution:
+        isolation:
+          thread:
+            timeoutInMilliseconds: 10000
+          strategy: SEMAPHORE
 mybatis:
   configuration:
     map-underscore-to-camel-case: true
-  mapper-locations: classpath:mapper/*Mapper.xml
+  mapper-locations: classpath:mapper/*Dao.xml
   type-aliases-package: com.changgou.order.pojo
 pagehelper:
   helper-dialect: mysql

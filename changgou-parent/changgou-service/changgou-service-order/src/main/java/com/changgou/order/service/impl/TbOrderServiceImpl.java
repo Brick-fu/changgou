@@ -4,6 +4,7 @@ import com.changgou.common.enums.OrderEnum;
 import com.changgou.common.enums.OrderItemEnum;
 import com.changgou.common.utils.DateUtil;
 import com.changgou.goods.feign.SkuFeign;
+import com.changgou.order.controller.TbOrderController;
 import com.changgou.order.dao.TbOrderItemDao;
 import com.changgou.order.pojo.TbOrder;
 import com.changgou.order.dao.TbOrderDao;
@@ -11,6 +12,8 @@ import com.changgou.order.pojo.TbOrderItem;
 import com.changgou.order.service.CartService;
 import com.changgou.order.service.TbOrderService;
 import com.changgou.common.utils.IdWorker;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.amqp.AmqpException;
 import org.springframework.amqp.core.Message;
 import org.springframework.amqp.core.MessagePostProcessor;
@@ -54,6 +57,8 @@ public class TbOrderServiceImpl implements TbOrderService {
 
     @Autowired
     private RabbitTemplate rabbitTemplate;
+
+    private final Logger logger = LoggerFactory.getLogger(TbOrderController.class);
 
     /**
      * 通过ID查询单条数据
@@ -101,7 +106,8 @@ public class TbOrderServiceImpl implements TbOrderService {
         int num = 0;
         Map<String,Integer> map = new HashMap<>();
         for(Long skuId:skuIds){
-            TbOrderItem tbOrderItem = (TbOrderItem) redisTemplate.opsForHash().get("cart_" + tbOrder.getUsername(), skuId);
+            TbOrderItem tbOrderItem = (TbOrderItem) redisTemplate.opsForHash().get("CART_" + tbOrder.getUsername(), skuId);
+            logger.info("TbOrderServiceImpl.saveOrder.orderItem,{}",tbOrderItem);
             //总金额
             totalMoney += tbOrderItem.getMoney();
             //实际支付金额
@@ -136,17 +142,17 @@ public class TbOrderServiceImpl implements TbOrderService {
             //将订单明细放到redis中
             //redisTemplate.opsForList().rightPush(tbOrder.getId(),orderItem);
             //清除购物车
-            redisTemplate.opsForHash().delete("cart_" + tbOrder.getUsername(),orderItem.getSkuId());
+            redisTemplate.opsForHash().delete("CART_" + tbOrder.getUsername(),orderItem.getSkuId());
         }
 
         //删除商品库存
         skuFeign.decrCount(map);
 
         //发送延时消息
-        rabbitTemplate.convertAndSend("order.listener.exchange", (Object) tbOrder.getId(), new MessagePostProcessor() {
+        rabbitTemplate.convertAndSend("order.delay.queue", (Object) tbOrder.getId(), new MessagePostProcessor() {
             @Override
             public Message postProcessMessage(Message message) throws AmqpException {
-                message.getMessageProperties().setExpiration("10000");
+                message.getMessageProperties().setExpiration("20000");
                 return message;
             }
         });
@@ -177,7 +183,7 @@ public class TbOrderServiceImpl implements TbOrderService {
         tbOrderDao.insert(order);
         //List<TbOrderItem> list = redisTemplate.opsForList().range(order.getId(), 0, -1);
         //2.删除Redis中的订单记录
-        redisTemplate.boundHashOps("Order").delete(orderId);
+        redisTemplate.boundHashOps("ORDER").delete(orderId);
     }
 
     /**

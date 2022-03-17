@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.changgou.order.dao.TbCategoryReportDao">
 
-    <resultMap type="com.changgou.order.entity.TbCategoryReport" id="TbCategoryReportMap">
+    <resultMap type="com.changgou.order.pojo.TbCategoryReport" id="TbCategoryReportMap">
         <result property="categoryId1" column="category_id1" jdbcType="INTEGER"/>
         <result property="categoryId2" column="category_id2" jdbcType="INTEGER"/>
         <result property="categoryId3" column="category_id3" jdbcType="INTEGER"/>

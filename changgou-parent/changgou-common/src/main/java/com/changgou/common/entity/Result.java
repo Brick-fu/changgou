@@ -2,7 +2,11 @@ package com.changgou.common.entity;
 
 import com.changgou.common.enums.StatusCodeEnum;
 import org.slf4j.MDC;
+import org.springframework.util.ObjectUtils;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
 
+import java.io.ObjectInputStream;
 import java.io.Serializable;
 
 /**
@@ -15,13 +19,13 @@ import java.io.Serializable;
 public class Result<T> implements Serializable {
 
     private static final long serialVersionUID = 7031498825152043638L;
-
+    private static ServletRequestAttributes servletRequestAttributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
     private boolean flag;//是否成功
     private String code;//返回码
     private String message;//返回消息
     private String traceId = MDC.get("traceId");
     private T data;//返回数据
-    private String path;
+    private String path = getURI();;
 
     public Result(boolean flag, String code, String message, T data) {
         this.flag = flag;
@@ -57,6 +61,13 @@ public class Result<T> implements Serializable {
         this.flag = true;
         this.code = StatusCodeEnum.SUCCESS.getCode();
         this.message = "操作成功!";
+    }
+
+    public String getURI(){
+        if(ObjectUtils.isEmpty(servletRequestAttributes)){
+            return null;
+        }
+        return servletRequestAttributes.getRequest().getRequestURI();
     }
 
     public String getPath() {

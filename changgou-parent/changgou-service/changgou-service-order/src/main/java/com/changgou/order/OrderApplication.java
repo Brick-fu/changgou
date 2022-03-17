@@ -9,6 +9,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
 import org.springframework.cloud.openfeign.EnableFeignClients;
 import org.springframework.context.annotation.Bean;
+import org.springframework.web.context.request.RequestContextListener;
 
 @SpringBootApplication
 @EnableEurekaClient
@@ -33,4 +34,9 @@ public class OrderApplication {
     public FeignInterceptor feignInterceptor(){
         return new FeignInterceptor();
     }
+
+    /*@Bean
+    public RequestContextListener requestContextListener(){
+        return new RequestContextListener();
+    }*/
 }
