@@ -1,0 +1,90 @@
+server:
+  port: 18093
+info:
+  app:
+    name: changgou-seckill
+    version: v1.0.0
+    description: this is a seckill microservices
+spring:
+  main:
+    allow-bean-definition-overriding: true
+  application:
+    name: changgou-seckill
+  datasource:
+    type: com.alibaba.druid.pool.DruidDataSource
+    driver‐class‐name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://www.brick.com:3306/changgou_seckill?serverTimezone=Asia/Shanghai&useSSL=true
+    username: root
+    password: 123456
+    druid:
+      initial-size: 5 #初始化时建立物理连接的个数
+      min-idle: 5 #最小连接池数量
+      max-wait: 60000 #获取连接时最大等待时间，单位毫秒
+      pool-prepared-statements: true #是否缓存preparedStatement,mysql5.5+建议开启
+      filters: stat,wall #配置扩展插件
+      use-global-data-source-stat: true #合并多个DruidDataSource的监控数据
+  jackson:
+    time-zone: GMT+8
+    date-format: yyyy-MM-dd HH:mm:ss
+  #引入redis
+  redis:
+    lettuce:
+      pool:
+        max-active: 100
+        max-idle: 10
+        max-wait: -1ms
+        min-idle: 3
+    timeout: 6000ms
+    password: 123456
+    cluster:
+      nodes: www.brick.com:9001,www.brick.com:9003,www.brick.com:9005,www.brick.com:9002,www.brick.com:9004,www.brick.com:9006
+      max-redirects: 3
+  rabbitmq:
+    addresses: www.brick.com
+    username: guest
+    password: guest
+    port: 5672
+eureka:
+  client:
+    service‐url:
+      defaultZone: http://www.brick.com:7001/eureka
+  instance:
+    prefer‐ip‐address: true
+management:
+  endpoints:
+    web:
+      exposure:
+        include: info,health
+feign:
+  hystrix:
+    enabled: true
+  httpclient:
+    connection-timeout: 10000
+  client:
+    config:
+      default: # 指定feignclients对应的名称 如果指定的是default 表示全局所有的client 的超时时间设置
+        connectTimeout: 10000
+        readTimeout: 10000
+        loggerLevel: basic
+#hystrix 配置
+hystrix:
+  command:
+    default:
+      execution:
+        isolation:
+          thread:
+            timeoutInMilliseconds: 10000
+          strategy: SEMAPHORE
+mybatis:
+  configuration:
+    map-underscore-to-camel-case: true
+  mapper-locations: classpath:mapper/*Dao.xml
+  type-aliases-package: com.changgou.seckill.pojo
+pagehelper:
+  helper-dialect: mysql
+  reasonable: true
+#位置支付交换机和队列
+mq:
+  pay:
+    queue:
+      order: queue.order

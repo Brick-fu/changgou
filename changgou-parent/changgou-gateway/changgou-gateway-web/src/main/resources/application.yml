@@ -43,6 +43,13 @@ spring:
             - Path=/api/cart/**,/api/categoryReport/**,/api/orderConfig/**,/api/order/**,/api/orderItem/**,/api/orderLog/**,/api/preferential/**,/api/returnCause/**,/api/returnOrder/**,/api/returnOrderItem/**
           filters:
             - StripPrefix=1
+        #订单微服务
+        - id: changgou_seckill_route
+          uri: lb://changgou-seckill
+          predicates:
+            - Path=/api/seckillgoods/**
+          filters:
+            - StripPrefix=1
 server:
   port: 8001
 eureka:

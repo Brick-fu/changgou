@@ -1,7 +1,7 @@
 package com.changgou.user.feign;
 
 import com.changgou.common.entity.Result;
-import com.changgou.user.pojo.TbUser;
+import com.changgou.user.pojo.User;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -25,5 +25,5 @@ public interface UserFeign {
      * @return
      */
     @GetMapping("/{id}")
-    Result<TbUser> queryById(@PathVariable(value = "id") String id);
+    Result<User> queryById(@PathVariable(value = "id") String id);
 }

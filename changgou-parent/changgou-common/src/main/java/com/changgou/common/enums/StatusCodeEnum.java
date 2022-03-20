@@ -23,7 +23,12 @@ public enum StatusCodeEnum {
     LOGINERROR("400002","用户名或密码错误"),
 
     /*用户中心*/
-    USER_IS_NULL("600001","用户为空！")
+    USER_IS_NULL("600001","用户为空！"),
+
+    /*秒杀中心*/
+    SECKILL_GOODS_STOCK_COUONT_SHORTAGE("700001","商品已售罄！"),
+    NOT_FOUND_DATA("700002","有对应的抢购数据"),
+    NOT_DOUBLE_ORDERING("700003","勿重复下单！"),
     ;
 
 

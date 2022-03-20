@@ -1,7 +1,6 @@
 package com.changgou.order.service;
 
-import com.changgou.order.pojo.TbOrderItem;
-import org.springframework.stereotype.Service;
+import com.changgou.order.pojo.OrderItem;
 
 import java.util.List;
 
@@ -12,7 +11,7 @@ public interface CartService {
      * @param username
      * @return
      */
-    List<TbOrderItem> list(String username);
+    List<OrderItem> list(String username);
 
     /***
      * 添加购物车

@@ -1,0 +1,364 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.changgou.order.dao.OrderDao">
+
+    <resultMap type="com.changgou.order.pojo.Order" id="OrderMap">
+        <result property="id" column="id" jdbcType="VARCHAR"/>
+        <result property="totalNum" column="total_num" jdbcType="INTEGER"/>
+        <result property="totalMoney" column="total_money" jdbcType="INTEGER"/>
+        <result property="preMoney" column="pre_money" jdbcType="INTEGER"/>
+        <result property="postFee" column="post_fee" jdbcType="INTEGER"/>
+        <result property="payMoney" column="pay_money" jdbcType="INTEGER"/>
+        <result property="payType" column="pay_type" jdbcType="VARCHAR"/>
+        <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+        <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
+        <result property="payTime" column="pay_time" jdbcType="TIMESTAMP"/>
+        <result property="consignTime" column="consign_time" jdbcType="TIMESTAMP"/>
+        <result property="endTime" column="end_time" jdbcType="TIMESTAMP"/>
+        <result property="closeTime" column="close_time" jdbcType="TIMESTAMP"/>
+        <result property="shippingName" column="shipping_name" jdbcType="VARCHAR"/>
+        <result property="shippingCode" column="shipping_code" jdbcType="VARCHAR"/>
+        <result property="username" column="username" jdbcType="VARCHAR"/>
+        <result property="buyerMessage" column="buyer_message" jdbcType="VARCHAR"/>
+        <result property="buyerRate" column="buyer_rate" jdbcType="VARCHAR"/>
+        <result property="receiverContact" column="receiver_contact" jdbcType="VARCHAR"/>
+        <result property="receiverMobile" column="receiver_mobile" jdbcType="VARCHAR"/>
+        <result property="receiverAddress" column="receiver_address" jdbcType="VARCHAR"/>
+        <result property="sourceType" column="source_type" jdbcType="VARCHAR"/>
+        <result property="transactionId" column="transaction_id" jdbcType="VARCHAR"/>
+        <result property="orderStatus" column="order_status" jdbcType="VARCHAR"/>
+        <result property="payStatus" column="pay_status" jdbcType="VARCHAR"/>
+        <result property="consignStatus" column="consign_status" jdbcType="VARCHAR"/>
+        <result property="isDelete" column="is_delete" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <!--查询单个-->
+    <select id="queryById" resultMap="OrderMap">
+        select
+          id, total_num, total_money, pre_money, post_fee, pay_money, pay_type, create_time, update_time, pay_time, consign_time, end_time, close_time, shipping_name, shipping_code, username, buyer_message, buyer_rate, receiver_contact, receiver_mobile, receiver_address, source_type, transaction_id, order_status, pay_status, consign_status, is_delete
+        from tb_order
+        where id = #{id}
+    </select>
+
+    <!--查询指定行数据-->
+    <select id="queryAllByLimit" resultMap="OrderMap">
+        select
+          id, total_num, total_money, pre_money, post_fee, pay_money, pay_type, create_time, update_time, pay_time, consign_time, end_time, close_time, shipping_name, shipping_code, username, buyer_message, buyer_rate, receiver_contact, receiver_mobile, receiver_address, source_type, transaction_id, order_status, pay_status, consign_status, is_delete
+        from tb_order
+        <where>
+            <if test="id != null and id != ''">
+                and id = #{id}
+            </if>
+            <if test="totalNum != null">
+                and total_num = #{totalNum}
+            </if>
+            <if test="totalMoney != null">
+                and total_money = #{totalMoney}
+            </if>
+            <if test="preMoney != null">
+                and pre_money = #{preMoney}
+            </if>
+            <if test="postFee != null">
+                and post_fee = #{postFee}
+            </if>
+            <if test="payMoney != null">
+                and pay_money = #{payMoney}
+            </if>
+            <if test="payType != null and payType != ''">
+                and pay_type = #{payType}
+            </if>
+            <if test="createTime != null">
+                and create_time = #{createTime}
+            </if>
+            <if test="updateTime != null">
+                and update_time = #{updateTime}
+            </if>
+            <if test="payTime != null">
+                and pay_time = #{payTime}
+            </if>
+            <if test="consignTime != null">
+                and consign_time = #{consignTime}
+            </if>
+            <if test="endTime != null">
+                and end_time = #{endTime}
+            </if>
+            <if test="closeTime != null">
+                and close_time = #{closeTime}
+            </if>
+            <if test="shippingName != null and shippingName != ''">
+                and shipping_name = #{shippingName}
+            </if>
+            <if test="shippingCode != null and shippingCode != ''">
+                and shipping_code = #{shippingCode}
+            </if>
+            <if test="username != null and username != ''">
+                and username = #{username}
+            </if>
+            <if test="buyerMessage != null and buyerMessage != ''">
+                and buyer_message = #{buyerMessage}
+            </if>
+            <if test="buyerRate != null and buyerRate != ''">
+                and buyer_rate = #{buyerRate}
+            </if>
+            <if test="receiverContact != null and receiverContact != ''">
+                and receiver_contact = #{receiverContact}
+            </if>
+            <if test="receiverMobile != null and receiverMobile != ''">
+                and receiver_mobile = #{receiverMobile}
+            </if>
+            <if test="receiverAddress != null and receiverAddress != ''">
+                and receiver_address = #{receiverAddress}
+            </if>
+            <if test="sourceType != null and sourceType != ''">
+                and source_type = #{sourceType}
+            </if>
+            <if test="transactionId != null and transactionId != ''">
+                and transaction_id = #{transactionId}
+            </if>
+            <if test="orderStatus != null and orderStatus != ''">
+                and order_status = #{orderStatus}
+            </if>
+            <if test="payStatus != null and payStatus != ''">
+                and pay_status = #{payStatus}
+            </if>
+            <if test="consignStatus != null and consignStatus != ''">
+                and consign_status = #{consignStatus}
+            </if>
+            <if test="isDelete != null and isDelete != ''">
+                and is_delete = #{isDelete}
+            </if>
+        </where>
+        limit #{pageable.offset}, #{pageable.pageSize}
+    </select>
+
+    <!--统计总行数-->
+    <select id="count" resultType="java.lang.Long">
+        select count(1)
+        from tb_order
+        <where>
+            <if test="id != null and id != ''">
+                and id = #{id}
+            </if>
+            <if test="totalNum != null">
+                and total_num = #{totalNum}
+            </if>
+            <if test="totalMoney != null">
+                and total_money = #{totalMoney}
+            </if>
+            <if test="preMoney != null">
+                and pre_money = #{preMoney}
+            </if>
+            <if test="postFee != null">
+                and post_fee = #{postFee}
+            </if>
+            <if test="payMoney != null">
+                and pay_money = #{payMoney}
+            </if>
+            <if test="payType != null and payType != ''">
+                and pay_type = #{payType}
+            </if>
+            <if test="createTime != null">
+                and create_time = #{createTime}
+            </if>
+            <if test="updateTime != null">
+                and update_time = #{updateTime}
+            </if>
+            <if test="payTime != null">
+                and pay_time = #{payTime}
+            </if>
+            <if test="consignTime != null">
+                and consign_time = #{consignTime}
+            </if>
+            <if test="endTime != null">
+                and end_time = #{endTime}
+            </if>
+            <if test="closeTime != null">
+                and close_time = #{closeTime}
+            </if>
+            <if test="shippingName != null and shippingName != ''">
+                and shipping_name = #{shippingName}
+            </if>
+            <if test="shippingCode != null and shippingCode != ''">
+                and shipping_code = #{shippingCode}
+            </if>
+            <if test="username != null and username != ''">
+                and username = #{username}
+            </if>
+            <if test="buyerMessage != null and buyerMessage != ''">
+                and buyer_message = #{buyerMessage}
+            </if>
+            <if test="buyerRate != null and buyerRate != ''">
+                and buyer_rate = #{buyerRate}
+            </if>
+            <if test="receiverContact != null and receiverContact != ''">
+                and receiver_contact = #{receiverContact}
+            </if>
+            <if test="receiverMobile != null and receiverMobile != ''">
+                and receiver_mobile = #{receiverMobile}
+            </if>
+            <if test="receiverAddress != null and receiverAddress != ''">
+                and receiver_address = #{receiverAddress}
+            </if>
+            <if test="sourceType != null and sourceType != ''">
+                and source_type = #{sourceType}
+            </if>
+            <if test="transactionId != null and transactionId != ''">
+                and transaction_id = #{transactionId}
+            </if>
+            <if test="orderStatus != null and orderStatus != ''">
+                and order_status = #{orderStatus}
+            </if>
+            <if test="payStatus != null and payStatus != ''">
+                and pay_status = #{payStatus}
+            </if>
+            <if test="consignStatus != null and consignStatus != ''">
+                and consign_status = #{consignStatus}
+            </if>
+            <if test="isDelete != null and isDelete != ''">
+                and is_delete = #{isDelete}
+            </if>
+        </where>
+    </select>
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="id" useGeneratedKeys="true">
+        insert into tb_order(total_num, total_money, pre_money, post_fee, pay_money, pay_type, create_time, update_time, pay_time, consign_time, end_time, close_time, shipping_name, shipping_code, username, buyer_message, buyer_rate, receiver_contact, receiver_mobile, receiver_address, source_type, transaction_id, order_status, pay_status, consign_status, is_delete)
+        values (#{totalNum}, #{totalMoney}, #{preMoney}, #{postFee}, #{payMoney}, #{payType}, #{createTime}, #{updateTime}, #{payTime}, #{consignTime}, #{endTime}, #{closeTime}, #{shippingName}, #{shippingCode}, #{username}, #{buyerMessage}, #{buyerRate}, #{receiverContact}, #{receiverMobile}, #{receiverAddress}, #{sourceType}, #{transactionId}, #{orderStatus}, #{payStatus}, #{consignStatus}, #{isDelete})
+    </insert>
+
+    <insert id="insertBatch" keyProperty="id" useGeneratedKeys="true">
+        insert into tb_order(total_num, total_money, pre_money, post_fee, pay_money, pay_type, create_time, update_time, pay_time, consign_time, end_time, close_time, shipping_name, shipping_code, username, buyer_message, buyer_rate, receiver_contact, receiver_mobile, receiver_address, source_type, transaction_id, order_status, pay_status, consign_status, is_delete)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+        (#{entity.totalNum}, #{entity.totalMoney}, #{entity.preMoney}, #{entity.postFee}, #{entity.payMoney}, #{entity.payType}, #{entity.createTime}, #{entity.updateTime}, #{entity.payTime}, #{entity.consignTime}, #{entity.endTime}, #{entity.closeTime}, #{entity.shippingName}, #{entity.shippingCode}, #{entity.username}, #{entity.buyerMessage}, #{entity.buyerRate}, #{entity.receiverContact}, #{entity.receiverMobile}, #{entity.receiverAddress}, #{entity.sourceType}, #{entity.transactionId}, #{entity.orderStatus}, #{entity.payStatus}, #{entity.consignStatus}, #{entity.isDelete})
+        </foreach>
+    </insert>
+
+    <insert id="insertOrUpdateBatch" keyProperty="id" useGeneratedKeys="true">
+        insert into tb_order(total_num, total_money, pre_money, post_fee, pay_money, pay_type, create_time, update_time, pay_time, consign_time, end_time, close_time, shipping_name, shipping_code, username, buyer_message, buyer_rate, receiver_contact, receiver_mobile, receiver_address, source_type, transaction_id, order_status, pay_status, consign_status, is_delete)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+            (#{entity.totalNum}, #{entity.totalMoney}, #{entity.preMoney}, #{entity.postFee}, #{entity.payMoney}, #{entity.payType}, #{entity.createTime}, #{entity.updateTime}, #{entity.payTime}, #{entity.consignTime}, #{entity.endTime}, #{entity.closeTime}, #{entity.shippingName}, #{entity.shippingCode}, #{entity.username}, #{entity.buyerMessage}, #{entity.buyerRate}, #{entity.receiverContact}, #{entity.receiverMobile}, #{entity.receiverAddress}, #{entity.sourceType}, #{entity.transactionId}, #{entity.orderStatus}, #{entity.payStatus}, #{entity.consignStatus}, #{entity.isDelete})
+        </foreach>
+        on duplicate key update
+        total_num = values(total_num),
+        total_money = values(total_money),
+        pre_money = values(pre_money),
+        post_fee = values(post_fee),
+        pay_money = values(pay_money),
+        pay_type = values(pay_type),
+        create_time = values(create_time),
+        update_time = values(update_time),
+        pay_time = values(pay_time),
+        consign_time = values(consign_time),
+        end_time = values(end_time),
+        close_time = values(close_time),
+        shipping_name = values(shipping_name),
+        shipping_code = values(shipping_code),
+        username = values(username),
+        buyer_message = values(buyer_message),
+        buyer_rate = values(buyer_rate),
+        receiver_contact = values(receiver_contact),
+        receiver_mobile = values(receiver_mobile),
+        receiver_address = values(receiver_address),
+        source_type = values(source_type),
+        transaction_id = values(transaction_id),
+        order_status = values(order_status),
+        pay_status = values(pay_status),
+        consign_status = values(consign_status),
+        is_delete = values(is_delete)
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update tb_order
+        <set>
+            <if test="totalNum != null">
+                total_num = #{totalNum},
+            </if>
+            <if test="totalMoney != null">
+                total_money = #{totalMoney},
+            </if>
+            <if test="preMoney != null">
+                pre_money = #{preMoney},
+            </if>
+            <if test="postFee != null">
+                post_fee = #{postFee},
+            </if>
+            <if test="payMoney != null">
+                pay_money = #{payMoney},
+            </if>
+            <if test="payType != null and payType != ''">
+                pay_type = #{payType},
+            </if>
+            <if test="createTime != null">
+                create_time = #{createTime},
+            </if>
+            <if test="updateTime != null">
+                update_time = #{updateTime},
+            </if>
+            <if test="payTime != null">
+                pay_time = #{payTime},
+            </if>
+            <if test="consignTime != null">
+                consign_time = #{consignTime},
+            </if>
+            <if test="endTime != null">
+                end_time = #{endTime},
+            </if>
+            <if test="closeTime != null">
+                close_time = #{closeTime},
+            </if>
+            <if test="shippingName != null and shippingName != ''">
+                shipping_name = #{shippingName},
+            </if>
+            <if test="shippingCode != null and shippingCode != ''">
+                shipping_code = #{shippingCode},
+            </if>
+            <if test="username != null and username != ''">
+                username = #{username},
+            </if>
+            <if test="buyerMessage != null and buyerMessage != ''">
+                buyer_message = #{buyerMessage},
+            </if>
+            <if test="buyerRate != null and buyerRate != ''">
+                buyer_rate = #{buyerRate},
+            </if>
+            <if test="receiverContact != null and receiverContact != ''">
+                receiver_contact = #{receiverContact},
+            </if>
+            <if test="receiverMobile != null and receiverMobile != ''">
+                receiver_mobile = #{receiverMobile},
+            </if>
+            <if test="receiverAddress != null and receiverAddress != ''">
+                receiver_address = #{receiverAddress},
+            </if>
+            <if test="sourceType != null and sourceType != ''">
+                source_type = #{sourceType},
+            </if>
+            <if test="transactionId != null and transactionId != ''">
+                transaction_id = #{transactionId},
+            </if>
+            <if test="orderStatus != null and orderStatus != ''">
+                order_status = #{orderStatus},
+            </if>
+            <if test="payStatus != null and payStatus != ''">
+                pay_status = #{payStatus},
+            </if>
+            <if test="consignStatus != null and consignStatus != ''">
+                consign_status = #{consignStatus},
+            </if>
+            <if test="isDelete != null and isDelete != ''">
+                is_delete = #{isDelete},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete from tb_order where id = #{id}
+    </delete>
+
+</mapper>
+

@@ -3,7 +3,7 @@ package com.changgou.order.controller;
 import com.changgou.common.entity.Result;
 import com.changgou.common.entity.TokenDecode;
 import com.changgou.common.enums.StatusCodeEnum;
-import com.changgou.order.pojo.TbOrderItem;
+import com.changgou.order.pojo.OrderItem;
 import com.changgou.order.service.CartService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -45,10 +45,10 @@ public class CartController {
      * @return
      */
     @GetMapping(value = "/list")
-    public Result<List<TbOrderItem>> list(){
+    public Result<List<OrderItem>> list(){
         //用户名
         String username = tokenDecode.getUserName();
-        List<TbOrderItem> orderItems = cartService.list(username);
+        List<OrderItem> orderItems = cartService.list(username);
         return new Result<>(true,StatusCodeEnum.SUCCESS.getCode(), "购物车列表查询成功！",orderItems);
     }
 }

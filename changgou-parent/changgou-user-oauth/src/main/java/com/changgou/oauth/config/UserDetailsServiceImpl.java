@@ -3,12 +3,11 @@ package com.changgou.oauth.config;
 import com.changgou.common.entity.Result;
 import com.changgou.oauth.util.UserJwt;
 import com.changgou.user.feign.UserFeign;
-import com.changgou.user.pojo.TbUser;
+import com.changgou.user.pojo.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -47,7 +46,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
                 //静态方式
                 // return new User(username,new BCryptPasswordEncoder().encode(clientSecret), AuthorityUtils.commaSeparatedStringToAuthorityList(""));
                 //数据库查找方式
-                return new User(username,clientSecret, AuthorityUtils.commaSeparatedStringToAuthorityList(""));
+                return new org.springframework.security.core.userdetails.User(username,clientSecret, AuthorityUtils.commaSeparatedStringToAuthorityList(""));
             }
         }
 
@@ -55,13 +54,13 @@ public class UserDetailsServiceImpl implements UserDetailsService {
             return null;
         }
         //根据用户名查询用户信息
-        Result<TbUser> result = userFeign.queryById(username);
+        Result<User> result = userFeign.queryById(username);
 
         if(result == null || result.getData() == null){
             return null;
         }
 
-        TbUser user = result.getData();
+        User user = result.getData();
         String pwd = user.getPassword();
         // TbUser user = new TbUser();
         // String pwd = new BCryptPasswordEncoder().encode("szitheima");

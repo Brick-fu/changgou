@@ -5,7 +5,7 @@ import com.changgou.goods.feign.SkuFeign;
 import com.changgou.goods.feign.SpuFeign;
 import com.changgou.goods.pojo.Sku;
 import com.changgou.goods.pojo.Spu;
-import com.changgou.order.pojo.TbOrderItem;
+import com.changgou.order.pojo.OrderItem;
 import com.changgou.order.service.CartService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -30,10 +30,10 @@ public class CartServiceImpl implements CartService {
     private final Logger logger = LoggerFactory.getLogger(CartServiceImpl.class);
 
     @Override
-    public List<TbOrderItem> list(String username) {
+    public List<OrderItem> list(String username) {
         logger.info("CartServiceImpl.list,{}",username);
         //查询所有购物车数据
-        List<TbOrderItem> orderItems = redisTemplate.boundHashOps("CART_"+username).values();
+        List<OrderItem> orderItems = redisTemplate.boundHashOps("CART_"+username).values();
         return orderItems;
     }
 
@@ -61,7 +61,7 @@ public class CartServiceImpl implements CartService {
             Result<Spu> resultSpu = spuFeign.findById(sku.getSpuId());
 
             //将SKU转换成OrderItem
-            TbOrderItem orderItem = sku2OrderItem(sku,resultSpu.getData(), num);
+            OrderItem orderItem = sku2OrderItem(sku,resultSpu.getData(), num);
 
             /******
              * 购物车数据存入到Redis
@@ -80,9 +80,9 @@ public class CartServiceImpl implements CartService {
      * @param num
      * @return
      */
-    private TbOrderItem sku2OrderItem(Sku sku,Spu spu,Integer num){
+    private OrderItem sku2OrderItem(Sku sku, Spu spu, Integer num){
         logger.info("CartServiceImpl.sku2OrderItem,sku:{},spu:{},num:{}",sku,spu,num);
-        TbOrderItem orderItem = new TbOrderItem();
+        OrderItem orderItem = new OrderItem();
         orderItem.setSpuId(sku.getSpuId());
         orderItem.setSkuId(sku.getId());
         orderItem.setName(sku.getName());

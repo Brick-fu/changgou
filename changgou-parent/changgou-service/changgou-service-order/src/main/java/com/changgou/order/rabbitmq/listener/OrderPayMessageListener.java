@@ -2,7 +2,7 @@ package com.changgou.order.rabbitmq.listener;
 
 import com.alibaba.fastjson.JSON;
 import com.changgou.common.enums.OrderEnum;
-import com.changgou.order.service.TbOrderService;
+import com.changgou.order.service.OrderService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.amqp.rabbit.annotation.RabbitHandler;
@@ -17,7 +17,7 @@ import java.util.Map;
 public class OrderPayMessageListener {
 
     @Autowired
-    private TbOrderService orderService;
+    private OrderService orderService;
 
     private final Logger logger = LoggerFactory.getLogger(OrderPayMessageListener.class);
 
