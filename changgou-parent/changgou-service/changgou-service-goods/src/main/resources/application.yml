@@ -24,6 +24,9 @@ spring:
   jackson:
     time-zone: GMT+8
     date-format: yyyy-MM-dd HH:mm:ss
+  autoconfigure:
+    exclude:
+      - com.alibaba.druid.spring.boot.autoconfigure.DruidDataSourceAutoConfigure
 eureka:
   client:
     service‐url:
@@ -54,3 +57,15 @@ mybatis:
 pagehelper:
   helper-dialect: mysql
   reasonable: true
+seata:
+  application-id: ${spring.application.name}
+  tx-service-group: ${spring.application.name}-group
+  service:
+    vgroup-mapping:
+      changgou-goods-group: default
+  registry:
+    type: eureka
+    eureka:
+      application: default
+      service-url: http://www.brick.com:7001/eureka
+      weight: 1

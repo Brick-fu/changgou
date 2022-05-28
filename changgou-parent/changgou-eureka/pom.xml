@@ -9,11 +9,30 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
     <artifactId>changgou-eureka</artifactId>
+    <version>0.0.1</version>
 
     <properties>
         <maven.compiler.source>8</maven.compiler.source>
         <maven.compiler.target>8</maven.compiler.target>
+        <scripts_packageName>${project.artifactId}-${project.version}</scripts_packageName>
+        <scripts_bootMain>com.changgou.EurekaApplication</scripts_bootMain>
     </properties>
+
+
+    <profiles>
+        <profile>
+            <id>dev</id>
+            <properties>
+                <!--传递给脚本的参数值-->
+                <!--<activeProfile>dev</activeProfile>-->
+                <package-name>${scripts_packageName}</package-name>
+                <boot-main>${scripts_bootMain}</boot-main>
+            </properties>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+        </profile>
+    </profiles>
 
     <dependencies>
         <!--引入log4j2依赖-->
@@ -33,5 +52,100 @@
             </exclusions>
         </dependency>
     </dependencies>
+
+    <build>
+        <!--<resources>
+            <resource>
+                <directory>${project.basedir}/src/main/profiles/${activeProfile}</directory>
+            </resource>
+            <resource>
+                <directory>${project.basedir}/src/main/resources</directory>
+                <includes>
+                    <include>static/**</include>
+                    <include>templates/**</include>
+                </includes>
+            </resource>
+        </resources>-->
+        <plugins>
+            <!--<plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-dependency-plugin</artifactId>
+                <version>3.1.1</version>
+                <executions>
+                    <execution>
+                        <id>copy-dependencies</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>copy-dependencies</goal>
+                        </goals>
+                        <configuration>
+                            <outputDirectory>${project.build.directory}/lib</outputDirectory>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>-->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <version>3.1.2</version>
+                <configuration>
+                    <archive>
+                        <manifest>
+                            <addDefaultImplementationEntries>true</addDefaultImplementationEntries>
+                            <addDefaultSpecificationEntries>true</addDefaultSpecificationEntries>
+                            <addClasspath>true</addClasspath>
+                            <classpathPrefix>lib/</classpathPrefix>
+                            <useUniqueVersions>false</useUniqueVersions>
+                            <mainClass>${scripts_bootMain}</mainClass>
+                        </manifest>
+                        <manifestEntries>
+                            <Class-Path>config/</Class-Path>
+                        </manifestEntries>
+                    </archive>
+                    <!--打包排除项-->
+                    <excludes>
+                        <exclude>*.**</exclude>
+                        <exclude>**/*.yml</exclude>
+                        <exclude>**/*.xml</exclude>
+                    </excludes>
+                    <outputDirectory>${project.build.directory}</outputDirectory>
+                </configuration>
+                <!--<executions>
+                    <execution>
+                        <id>make-a-jar</id>
+                        <phase>compile</phase>
+                        <goals>
+                            <goal>jar</goal>
+                        </goals>
+                    </execution>
+                </executions>-->
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-assembly-plugin</artifactId>
+                <version>3.1.1</version>
+                <!-- The configuration of the plugin -->
+                <configuration>
+                    <!-- Specifies the configuration file of the assembly plugin -->
+                    <attach>true</attach>
+                    <appendAssemblyId>false</appendAssemblyId>
+                    <tarLongFileMode>gnu</tarLongFileMode>
+                    <descriptors>
+                        <descriptor>${project.basedir}/src/main/assembly/assembly.xml</descriptor>
+                    </descriptors>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>make-assembly</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>single</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
 
 </project>

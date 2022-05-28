@@ -3,6 +3,8 @@ package com.changgou.order.dao;
 import com.changgou.order.pojo.Preferential;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.data.domain.Pageable;
+import org.springframework.stereotype.Repository;
+
 import java.util.List;
 
 /**
@@ -11,6 +13,7 @@ import java.util.List;
  * @author makejava
  * @since 2022-03-19 14:10:02
  */
+@Repository
 public interface PreferentialDao {
 
     /**

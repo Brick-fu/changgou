@@ -49,7 +49,6 @@ public interface SkuMapper {
      * @Skum id
      * @return
      */
-    @Select("SELECT * from tb_sku WHERE id = #{id}")
     Sku findById(Long id);
 
     /***

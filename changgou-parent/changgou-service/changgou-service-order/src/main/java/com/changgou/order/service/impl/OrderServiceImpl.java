@@ -12,6 +12,7 @@ import com.changgou.order.pojo.OrderItem;
 import com.changgou.order.service.CartService;
 import com.changgou.order.service.OrderService;
 import com.changgou.common.utils.IdWorker;
+import io.seata.spring.annotation.GlobalTransactional;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.amqp.AmqpException;
@@ -97,6 +98,7 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
+    @GlobalTransactional
     public Order saveOrder(Order order) {
         List<Long> skuIds = order.getSkuIds();
         List<OrderItem> orderItems = new ArrayList<>();
